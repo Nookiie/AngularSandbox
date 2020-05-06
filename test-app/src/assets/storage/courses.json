@@ -1,0 +1,56 @@
+[
+    {
+        "title":"Internet Technologies",
+        "description": "This is the description",
+        "dateOfPublishing":"14.04.2020",
+        "ratings":[{
+            "username":"Peter Thoroughbrow",
+            "rating": 6
+        },
+        {
+            "username":"George Davidson",
+            "rating": 6
+        },
+        {
+            "username":"James Goodwill",
+            "rating": 6
+        }   
+        ]
+    },
+    {
+        "title":"Big Data",
+        "description": "Big Data Stuff",
+        "dateOfPublishing":"25.02.2020",
+        "ratings":[{
+            "username":"Peter Thoroughbrow",
+            "rating": 6
+        },
+        {
+            "username":"George Davidson",
+            "rating": 4
+        },
+        {
+            "username":"James Goodwill",
+            "rating": 6
+        }   
+        ]
+    },
+    {
+        "title":"Angular Learning",
+        "description": "Big Data Stuff",
+        "dateOfPublishing":"16.01.2020",
+        "ratings":[{
+            "username":"Peter Thoroughbrow",
+            "rating": 2
+        },
+        {
+            "username":"George Davidson",
+            "rating": 6
+        },
+        {
+            "username":"Jimmy McGill",
+            "rating": 6
+        }   
+        ]
+    }
+]

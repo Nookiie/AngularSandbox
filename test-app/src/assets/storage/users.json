@@ -1,0 +1,23 @@
+[
+    {
+        "username": "maman59",
+        "password": "maman98",
+        "fname": "David",
+        "lname": "Peterbough",
+        "email":"maman@gmail.com"
+    },
+    {
+        "username": "maman68",
+        "password": "maman68",
+        "fname": "Viktor",
+        "lname": "Gill",
+        "email":"davar@gmail.com"
+    },
+    {
+        "username": "some_stupid_username",
+        "password": "some_stupid_password",
+        "fname": "George",
+        "lname": "Smith",
+        "email":"george.smith@gmail.com"
+    }
+]

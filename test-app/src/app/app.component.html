@@ -1,0 +1,60 @@
+<!DOCTYPE HTML5>
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <title>Stuff</title>
+  <h1>Hey</h1>
+</head>
+
+</html>
+
+<h1 style="text-align: center;">Course Management</h1>
+<div id="addCourseModal" class="container">
+  <div class="form-group">
+    <b>Title:</b>
+    <input class="form-control" type="text" [(ngModel)]="courseTitleInput" placeholder="Title">
+    <p *ngIf="!courseTitleInput" class="text-danger">Title is empty</p>
+  </div>
+
+  <div class="form-group">
+    <b>Description:</b>
+    <input class="form-control" type="text" [(ngModel)]="courseDescInput" placeholder="Description">
+    <p *ngIf="!courseDescInput" class="text-danger">Description is empty</p>
+  </div>
+
+  <div class="form-group">
+    <b>Date of publishing:</b>
+    <input class="form-control" type="date" [(ngModel)]="courseDateOfPublishInput" placeholder="Date of publishing">
+    <p *ngIf="!courseDateOfPublishInput" class="text-danger">Date of publishing is empty</p>
+  </div>
+
+  <div class="form-group">
+    <button style="margin-right:15px;" type="button" class="btn btn-outline-success" (click)="courseOnAddClick()">Add</button>
+    <button style="margin-right:15px;" type="button" class="btn btn-outline-danger"
+      (click)="courseOnRemoveByLastClick()">Remove Last</button>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date of Publishing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of this.courses; let i = index">
+        <td *ngIf="course">{{course.title}}</td>
+        <td *ngIf="course">{{course.description}}</td>
+        <td *ngIf="course">{{course.dateOfPublishing}}</td>
+        <td *ngIf="course"><button class="btn-link glyphicon glyphicon-remove" (click)="courseOnRemoveClick(i)"></button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
