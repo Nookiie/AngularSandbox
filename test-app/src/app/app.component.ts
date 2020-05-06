@@ -28,7 +28,6 @@ export class AppComponent {
   showError: boolean;
   currentUpdateEntity: number;
 
-
   userNameInput: string;
   userPassInput: string;
   userFNameInput: string;
@@ -69,60 +68,60 @@ export class AppComponent {
 
   courses: Course[] = [
     {
-        "title":"Internet Technologies",
-        "description": "This is the description",
-        "dateOfPublishing":"2020-04-19",
-        "ratings":[{
-            "username":"Peter Thoroughbrow",
-            "rating": 6
-        },
-        {
-            "username":"George Davidson",
-            "rating": 6
-        },
-        {
-            "username":"James Goodwill",
-            "rating": 6
-        }   
-        ]
+      "title": "Internet Technologies",
+      "description": "This is the description",
+      "dateOfPublishing": "2020-04-19",
+      "ratings": [{
+        "username": "Peter Thoroughbrow",
+        "rating": 6
+      },
+      {
+        "username": "George Davidson",
+        "rating": 6
+      },
+      {
+        "username": "James Goodwill",
+        "rating": 6
+      }
+      ]
     },
     {
-        "title":"Big Data",
-        "description": "Big Data Stuff",
-        "dateOfPublishing":"2020-04-16",
-        "ratings":[{
-            "username":"Peter Thoroughbrow",
-            "rating": 6
-        },
-        {
-            "username":"George Davidson",
-            "rating": 4
-        },
-        {
-            "username":"James Goodwill",
-            "rating": 6
-        }   
-        ]
+      "title": "Big Data",
+      "description": "Big Data Stuff",
+      "dateOfPublishing": "2020-04-16",
+      "ratings": [{
+        "username": "Peter Thoroughbrow",
+        "rating": 6
+      },
+      {
+        "username": "George Davidson",
+        "rating": 4
+      },
+      {
+        "username": "James Goodwill",
+        "rating": 6
+      }
+      ]
     },
     {
-        "title":"Angular Learning",
-        "description": "Big Data Stuff",
-        "dateOfPublishing":"2020-03-15",
-        "ratings":[{
-            "username":"Peter Thoroughbrow",
-            "rating": 2
-        },
-        {
-            "username":"George Davidson",
-            "rating": 6
-        },
-        {
-            "username":"Jimmy McGill",
-            "rating": 6
-        }   
-        ]
+      "title": "Angular Learning",
+      "description": "Big Data Stuff",
+      "dateOfPublishing": "2020-03-15",
+      "ratings": [{
+        "username": "Peter Thoroughbrow",
+        "rating": 2
+      },
+      {
+        "username": "George Davidson",
+        "rating": 6
+      },
+      {
+        "username": "Jimmy McGill",
+        "rating": 6
+      }
+      ]
     }
-]
+  ]
 
   courseOnAddClick(): void {
     if (!this.courseTitleInput
@@ -142,9 +141,7 @@ export class AppComponent {
       dateOfPublishing: this.courseDateOfPublishInput
     });
 
-    this.courseTitleInput = null;
-    this.courseDescInput = null;
-    this.courseDateOfPublishInput = null;
+    this.cleanUpInputs();
   }
 
   courseOnRemoveClick(index: number): void {
@@ -180,11 +177,7 @@ export class AppComponent {
       email: this.userEmailInput
     });
 
-    this.userNameInput = null;
-    this.userPassInput = null;
-    this.userFNameInput = null;
-    this.userLNameInput = null;
-    this.userEmailInput = null;
+    this.cleanUpInputs();
   }
 
   userOnRemoveClick(index: number): void {
@@ -205,7 +198,7 @@ export class AppComponent {
     this.currentUpdateEntity = index;
   }
 
-  userOnUpdateConfirmClick(): void{
+  userOnUpdateConfirmClick(): void {
     let index = this.currentUpdateEntity;
 
     this.users[index].username = this.userNameInput;
@@ -215,17 +208,19 @@ export class AppComponent {
     this.users[index].email = this.userEmailInput;
 
     this.currentUpdateEntity = null;
+
+    this.cleanUpInputs();
   }
 
   courseOnUpdateClick(index: number): void {
     this.courseTitleInput = this.courses[index].title;
     this.courseDescInput = this.courses[index].description;
     this.courseDateOfPublishInput = this.courses[index].dateOfPublishing;
-    
+
     this.currentUpdateEntity = index;
   }
 
-  courseOnUpdateConfirmClick(): void{
+  courseOnUpdateConfirmClick(): void {
     let index = this.currentUpdateEntity;
 
     this.courses[index].title = this.courseTitleInput;
@@ -233,11 +228,19 @@ export class AppComponent {
     this.courses[index].dateOfPublishing = this.courseDateOfPublishInput;
 
     this.currentUpdateEntity = null;
+
+    this.cleanUpInputs();
   }
 
+  cleanUpInputs(): void {
+    this.userNameInput = null;
+    this.userPassInput = null;
+    this.userFNameInput = null;
+    this.userLNameInput = null;
+    this.userEmailInput = null;
 
-
-  moreStuff(): void {
-
+    this.courseTitleInput = null;
+    this.courseDescInput = null;
+    this.courseDateOfPublishInput = null;
   }
 }

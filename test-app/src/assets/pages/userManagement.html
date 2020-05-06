@@ -45,6 +45,8 @@
   </div>
   <div class="form-group">
     <button style="margin-right:15px;" type="button" class="btn btn-outline-success" (click)="userOnAddClick()">Add</button>
+    <button *ngIf="currentUpdateEntity != null" style="margin-right:15px;" type="button" class="btn btn-outline-success" (click)="userOnUpdateConfirmClick()">Update</button>
+    <span *ngIf="currentUpdateEntity != null">Selected Entity Index: {{currentUpdateEntity}}</span>
     <button style="margin-right:15px;" type="button" class="btn btn-outline-danger"
       (click)="onRemoveByLastClick()">Remove Last</button>
   </div>
@@ -62,13 +64,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of this.users; let i = index">
+      <tr *ngFor="let user of this.users; let i = index" [ngClass] = "i === currentUpdateEntity ? 'active' : ''">
         <td *ngIf="user">{{user.username}}</td>
         <td *ngIf="user">{{user.password}}</td>
         <td *ngIf="user">{{user.fname}}</td>
         <td *ngIf="user">{{user.lname}}</td>
         <td *ngIf="user">{{user.email}}</td>
         <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" (click)="userOnRemoveClick(i)"></button></td>
+        <td *ngIf="course"><button class="btn-link glyphicon glyphicon-edit" (click)="userOnUpdateClick(i)"></button></td>
       </tr>
     </tbody>
   </table>
