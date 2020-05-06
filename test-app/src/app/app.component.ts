@@ -11,6 +11,8 @@ import { JsonObject, JsonProperty, JsonConvert } from 'json2typescript';
 
 import * as courseData from './../assets/Storage/courses.json';
 import * as userData from './../assets/Storage/users.json';
+import { UserManagement } from 'src/assets/logic/userManagement';
+import { CourseManagement } from 'src/assets/logic/courseManagement';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,8 @@ export class AppComponent {
   isLoggedIn: boolean;
   isAdmin: boolean;
   showError: boolean;
+  currentUpdateEntity: number;
+
 
   userNameInput: string;
   userPassInput: string;
@@ -67,7 +71,7 @@ export class AppComponent {
     {
         "title":"Internet Technologies",
         "description": "This is the description",
-        "dateOfPublishing":"14.04.2020",
+        "dateOfPublishing":"2020-04-19",
         "ratings":[{
             "username":"Peter Thoroughbrow",
             "rating": 6
@@ -85,7 +89,7 @@ export class AppComponent {
     {
         "title":"Big Data",
         "description": "Big Data Stuff",
-        "dateOfPublishing":"25.02.2020",
+        "dateOfPublishing":"2020-04-16",
         "ratings":[{
             "username":"Peter Thoroughbrow",
             "rating": 6
@@ -103,7 +107,7 @@ export class AppComponent {
     {
         "title":"Angular Learning",
         "description": "Big Data Stuff",
-        "dateOfPublishing":"16.01.2020",
+        "dateOfPublishing":"2020-03-15",
         "ratings":[{
             "username":"Peter Thoroughbrow",
             "rating": 2
@@ -191,9 +195,46 @@ export class AppComponent {
     this.users.pop();
   }
 
-  onUpdateClick(): void {
+  userOnUpdateClick(index: number): void {
+    this.userNameInput = this.users[index].username;
+    this.userPassInput = this.users[index].password;
+    this.userFNameInput = this.users[index].fname;
+    this.userLNameInput = this.users[index].lname;
+    this.userEmailInput = this.users[index].email;
 
+    this.currentUpdateEntity = index;
   }
+
+  userOnUpdateConfirmClick(): void{
+    let index = this.currentUpdateEntity;
+
+    this.users[index].username = this.userNameInput;
+    this.users[index].password = this.userPassInput;
+    this.users[index].fname = this.userFNameInput;
+    this.users[index].lname = this.userLNameInput;
+    this.users[index].email = this.userEmailInput;
+
+    this.currentUpdateEntity = null;
+  }
+
+  courseOnUpdateClick(index: number): void {
+    this.courseTitleInput = this.courses[index].title;
+    this.courseDescInput = this.courses[index].description;
+    this.courseDateOfPublishInput = this.courses[index].dateOfPublishing;
+    
+    this.currentUpdateEntity = index;
+  }
+
+  courseOnUpdateConfirmClick(): void{
+    let index = this.currentUpdateEntity;
+
+    this.courses[index].title = this.courseTitleInput;
+    this.courses[index].description = this.courseDescInput;
+    this.courses[index].dateOfPublishing = this.courseDateOfPublishInput;
+
+    this.currentUpdateEntity = null;
+  }
+
 
 
   moreStuff(): void {
