@@ -9,6 +9,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { AccountEditComponent } from './account-edit/account-edit.component';
+import { UserAdministrationComponent } from './user-administration/user-administration.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AccountEditComponent } from './account-edit/account-edit.component';
     LoginFormComponent,
     UserManagementComponent,
     CourseManagementComponent,
-    AccountEditComponent
+    AccountEditComponent,
+    UserAdministrationComponent
   ],
   imports: [
     BrowserModule,

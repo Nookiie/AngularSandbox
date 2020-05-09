@@ -6,5 +6,7 @@ export interface User
     lname: string;
     password: string;
     email: string;
+
     isAdmin?: boolean;
+    isBlocked?: boolean;
 }

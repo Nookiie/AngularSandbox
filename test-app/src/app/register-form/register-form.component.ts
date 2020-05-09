@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from 'src/assets/model/user';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-register-form',
@@ -8,6 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterFormComponent implements OnInit {
   formGroup: FormGroup;
+  userManagement: AppComponent;
 
   constructor(private fb: FormBuilder) {
     this.formGroup = this.fb.group({
@@ -19,11 +22,15 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
+  users: User[];
   onSubmit(): void {
     if (this.formGroup.valid)
+    {
       console.log(this.formGroup);
+    }
   }
   ngOnInit(): void {
+   this.users = this.userManagement.getUsers(); 
   }
 
 }

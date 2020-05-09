@@ -27,27 +27,33 @@ export class LoginFormComponent implements OnInit {
 
   users: User[] = [
     {
-      "username": "maman59",
-      "password": "maman98",
-      "fname": "David",
-      "lname": "Peterbough",
-      "email": "maman@gmail.com"
+        "username": "maman59",
+        "password": "maman98",
+        "fname": "David",
+        "lname": "Peterbough",
+        "email":"maman@gmail.com",
+        "isAdmin":false,
+        "isBlocked":false
     },
     {
-      "username": "maman68",
-      "password": "maman68",
-      "fname": "Viktor",
-      "lname": "Gill",
-      "email": "davar@gmail.com"
+        "username": "maman68",
+        "password": "maman68",
+        "fname": "Viktor",
+        "lname": "Gill",
+        "email": "davar@gmail.com",
+        "isAdmin":true,
+        "isBlocked":false
     },
     {
-      "username": "some_stupid_username",
-      "password": "some_stupid_password",
-      "fname": "George",
-      "lname": "Smith",
-      "email": "george.smith@gmail.com"
+        "username": "some_stupid_username",
+        "password": "some_stupid_password",
+        "fname": "George",
+        "lname": "Smith",
+        "email":"george.smith@gmail.com",
+        "isAdmin":false,
+        "isBlocked":false
     }
-  ];
+];
 
   onSubmit(): void {
     if (this.formGroup.valid){

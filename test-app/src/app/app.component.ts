@@ -26,7 +26,9 @@ export class AppComponent {
   isLoggedIn: boolean;
   isAdmin: boolean;
   showError: boolean;
+
   currentUpdateEntity: number;
+  currentLoggedInUser: User;
 
   userNameInput: string;
   userPassInput: string;
@@ -186,6 +188,10 @@ export class AppComponent {
 
   onRemoveByLastClick() {
     this.users.pop();
+  }
+
+  getUsers(): User[]{
+    return this.users;
   }
 
   userOnUpdateClick(index: number): void {
