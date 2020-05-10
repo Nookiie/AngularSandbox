@@ -1,3 +1,4 @@
+import { Course } from './course';
 
 export interface User 
 {
@@ -9,4 +10,5 @@ export interface User
 
     isAdmin?: boolean;
     isBlocked?: boolean;
+    favouriteCourses?: Course[];
 }

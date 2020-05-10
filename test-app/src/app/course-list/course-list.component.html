@@ -1,0 +1,52 @@
+<h1 style="text-align: center;">Course List</h1>
+<div id="addCourseModal" class="container">
+    <p *ngIf="showErrorCanNotVoteTwice" class="text-danger">You have already given a rating to this course</p>
+    <div *ngIf="currentCourseEntity != null" class="form-group">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmitVote()" class="form">
+            <div class = "form-group">
+              <label for="rating">Rating</label>
+              <select type="number" 
+              name="rating" 
+              id="rating" 
+              class="form-control" 
+              placeholder="Rating from 1 - 10" 
+              aria-describedby="helpId"
+              formControlName="rating">
+              <option *ngFor="let item of defaultRatings" [ngValue]="item">{{item}}</option>
+              </select>
+    
+              <small *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.required"
+              class="text-danger">This field is required.</small>
+    
+              <small *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.min" id="helpId" 
+              class="text-muted">Rating must be between 1 - 10</small>
+    
+              <small *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.max" id="helpId" 
+              class="text-muted">Rating must be between 1 - 10</small>
+            </div>
+              <button type="submit" class = "btn btn-info">Give Rating</button>
+        </form>
+</div>
+
+<div class="container mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date of Publishing</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of this.courses; let i = index"
+                [ngClass]="i === currentCourseEntity ? 'active' : ''">
+                <td *ngIf="course">{{course.title}}</td>
+                <td *ngIf="course">{{course.description}}</td>
+                <td *ngIf="course">{{course.dateOfPublish}}</td>
+                <td *ngIf="course">{{course.rating}}</td>
+                <td *ngIf="course"><button class="btn-link glyphicon glyphicon-edit"
+                        (click)="courseVoteSelect(i)"></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

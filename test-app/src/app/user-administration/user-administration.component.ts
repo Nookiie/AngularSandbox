@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/assets/model/user';
 import { AppComponent } from '../app.component';
+import { CourseUtils } from 'src/assets/utils/courseUtils';
 
 @Component({
   selector: 'app-user-administration',
@@ -13,6 +14,7 @@ export class UserAdministrationComponent implements OnInit {
   isLoggedIn: boolean;
   isAdmin: boolean;
   currentUpdateEntity: number;
+  courseUtils: CourseUtils = new CourseUtils();
 
   users: User[] = [
     {
@@ -43,17 +45,16 @@ export class UserAdministrationComponent implements OnInit {
   }
 
   userOnBlockClick(index: number): void {
-    if(this.users[index].isBlocked == null || this.users[index].isBlocked === false){
+    if (this.users[index].isBlocked == null || this.users[index].isBlocked === false) {
       this.users[index].isBlocked = true;
 
       console.log("Blocked user: " + this.users[index].username);
 
     }
-    else{
+    else {
       this.users[index].isBlocked = false;
 
       console.log("Unblocked user: " + this.users[index].username);
-
     }
   }
   ngOnInit(): void {

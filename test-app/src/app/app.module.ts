@@ -10,6 +10,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { AccountEditComponent } from './account-edit/account-edit.component';
 import { UserAdministrationComponent } from './user-administration/user-administration.component';
+import { CourseListComponent } from './course-list/course-list.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserAdministrationComponent } from './user-administration/user-administ
     UserManagementComponent,
     CourseManagementComponent,
     AccountEditComponent,
-    UserAdministrationComponent
+    UserAdministrationComponent,
+    CourseListComponent
   ],
   imports: [
     BrowserModule,
