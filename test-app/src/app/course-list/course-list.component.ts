@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/assets/model/course';
 import { User } from 'src/assets/model/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CourseUtils } from 'src/assets/utils/courseUtils';
 
 @Component({
   selector: 'app-course-list',
@@ -10,17 +11,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CourseListComponent implements OnInit {
   formGroup: FormGroup;
+  courseUtils: CourseUtils = new CourseUtils();
+
+  showErrorCanNotVoteTwice: boolean;
+  currentCourseEntity: number;
+  defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private fb: FormBuilder) {
     this.formGroup = this.fb.group({
       rating: [0, [Validators.required, Validators.max(10), Validators.min(0)]],
     });
   }
-
-  showErrorCanNotVoteTwice: boolean;
-  currentCourseEntity: number;
-  courseStuff: number;
-  defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   users: User[] = [
     {
@@ -39,7 +40,8 @@ export class CourseListComponent implements OnInit {
       "lname": "Gill",
       "email": "davar@gmail.com",
       "isAdmin": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "favouriteCourses": []
     },
     {
       "username": "some_stupid_username",
@@ -112,7 +114,7 @@ export class CourseListComponent implements OnInit {
 
   courseVoteSelect(index: number) {
     this.currentCourseEntity = index;
-    if(this.courses[this.currentCourseEntity].ratings.find(x => x.username === this.currentLoggedInUser.username)){
+    if (this.courses[this.currentCourseEntity].ratings.find(x => x.username === this.currentLoggedInUser.username)) {
       this.showErrorCanNotVoteTwice = true;
       this.currentCourseEntity = null;
 
@@ -134,10 +136,27 @@ export class CourseListComponent implements OnInit {
     this.currentCourseEntity = null;
   }
 
-  courseFavourite(index: number) {
-    this.currentLoggedInUser.favouriteCourses.push(this.courses[index]);
+  courseFavourite(course: Course) {
+    this.currentLoggedInUser.favouriteCourses.push(course);
 
-    console.log("User: " + this.currentLoggedInUser.username + " has favourited a course: " + this.courses[index]);
+    console.log("User: " + this.currentLoggedInUser.username + " has favourited a course: " + course.title);
+  }
+
+  courseUnfavourite(course: Course) {
+    let courseIndex = this.currentLoggedInUser.favouriteCourses.indexOf(course);
+    delete this.currentLoggedInUser.favouriteCourses[courseIndex];
+
+    console.log("User: " + this.currentLoggedInUser.username + "has unfavourited a course: " + course.title);
+  }
+
+  isCurrentFavouriteCourse(course: Course): boolean {
+    let currentCourse = this.currentLoggedInUser.favouriteCourses.find(x => x === course)
+
+    if (currentCourse == null) {
+      return false;
+    }
+
+      return true;
   }
 
   onSubmitVote(): void {

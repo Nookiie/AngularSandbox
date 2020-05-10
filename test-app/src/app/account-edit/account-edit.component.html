@@ -84,4 +84,23 @@
 
           <button type="submit" class = "btn btn-info">Update</button>
     </form>
+
+    <div class="form-group">
+      <h1 class = "text-primary text-center">Favourite Courses</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Personal Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of currentLoggedInUser.favouriteCourses; let i = index">
+            <td *ngIf="course">{{course.title}}</td>
+            <td *ngIf="course">{{getPersonalRating(course)}}</td>
+            <td *ngIf="course"><button class="btn-link glyphicon glyphicon-remove" (click)="userUnfavouriteClick(course)"></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
