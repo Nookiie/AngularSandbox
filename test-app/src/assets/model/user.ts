@@ -1,6 +1,7 @@
 import { Course } from './course';
+import { BaseEntity } from './baseEntity';
 
-export interface User 
+export interface User extends BaseEntity
 {
     username: string;
     fname: string;

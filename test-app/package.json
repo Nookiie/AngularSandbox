@@ -21,9 +21,9 @@
     "@angular/router": "~9.1.1",
     "@types/bootstrap": "^4.3.2",
     "bootstrap": "^4.4.1",
-    "json2typescript": "^1.4.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "typescript-json-object-mapper": "^1.4.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

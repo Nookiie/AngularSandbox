@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2 class = "text-primary">{{course.id ? 'Update' : 'Add'}} course</h2>
+    </div>
+
+    <div class="col-md-12">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Enter title..." formControlName="title">
+
+                <small
+                    *ngIf="formGroup.get('title').touched && formGroup.get('title').invalid && formGroup.get('title').errors.required"
+                    class="text-danger">This field is required.</small>
+
+                <small
+                    *ngIf="formGroup.get('title').touched && formGroup.get('title').invalid && formGroup.get('title').errors.minlength"
+                    class="text-danger">
+                    This field includes {{formGroup.get('title').errors.minlength.actualLength}} characters.
+                    This field should contain at least {{formGroup.get('title').errors.minlength.requiredLength}}
+                    characters.
+                </small>
+
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" placeholder="Enter description..."
+                    formControlName="description">
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfPublish">Date of Publishing</label>
+                <input type = "date" class="form-control" id="dateOfPublish" placeholder="Enter date of Publishing"
+                    formControlName="dateOfPublish">
+
+                <small
+                    *ngIf="formGroup.get('dateOfPublish').touched && formGroup.get('dateOfPublish').invalid && formGroup.get('dateOfPublish').errors.required"
+                    class="text-danger">This field is required.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Submit
+            </button>
+        </form>
+    </div>
+</div>

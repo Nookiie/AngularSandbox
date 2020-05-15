@@ -1,7 +1,9 @@
-import { User } from './User';
-import { Course } from './Course';
+import { User } from './user';
+import { Course } from './course';
+import { BaseEntity } from './baseEntity';
 
-export interface CourseRating {
+export interface CourseRating extends BaseEntity
+{
     username: string;
     rating: number;
 }

@@ -1,4 +1,4 @@
-<h1 class="mb-4 text-primary text-center">User Administration</h1>
+<h1 class="mb-4 text-primary text-center">Users List</h1>
 <div class="container mt-4">
     <table class="table">
       <thead>
@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of this.users; let i = index" [ngClass] = "user.isBlocked  ? 'danger' : ''">
+        <tr *ngFor="let user of this.users; let i = index">
           <td *ngIf="user">{{user.username}}</td>
           <td *ngIf="user">{{user.password}}</td>
           <td *ngIf="user">{{user.fname}}</td>

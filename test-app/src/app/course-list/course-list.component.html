@@ -1,54 +1,35 @@
-<h1 style="text-align: center;">Course List</h1>
-<div id="addCourseModal" class="container">
-    <p *ngIf="showErrorCanNotVoteTwice" class="text-danger">You have already given a rating to this course</p>
-    <div *ngIf="currentCourseEntity != null" class="form-group">
-        <form [formGroup]="formGroup" (ngSubmit)="onSubmitVote()" class="form">
-            <div class="form-group">
-                <label for="rating">Rating</label>
-                <select type="number" name="rating" id="rating" class="form-control" placeholder="Rating from 1 - 10"
-                    aria-describedby="helpId" formControlName="rating">
-                    <option *ngFor="let item of defaultRatings" [ngValue]="item">{{item}}</option>
-                </select>
+<h3 class="mb-4 text-primary text-center">Course List View</h3>
 
-                <small
-                    *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.required"
-                    class="text-danger">This field is required.</small>
+<div class="row mb-4">
+  <div class="col-md-12 d-flex justify-content-between">
+    <div class="col-md-10">
+      <form class="d-flex" [formGroup]="formGroup" (ngSubmit)="onSearch()">
+        <input type="text"
+               class="form-control mr-2"
+               placeholder="Search by title..."
+               formControlName="search">
 
-                <small
-                    *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.min"
-                    id="helpId" class="text-muted">Rating must be between 1 - 10</small>
-
-                <small
-                    *ngIf="formGroup.get('rating').touched && formGroup.get('rating').invalid && formGroup.get('rating').errors.max"
-                    id="helpId" class="text-muted">Rating must be between 1 - 10</small>
-            </div>
-            <button type="submit" class="btn btn-info">Give Rating</button>
-        </form>
+        <button class="btn btn-outline-primary">Search</button>
+        <button class="btn btn-outline-dark ml-2" (click)="onClearSearch()">Clear</button>
+      </form>
     </div>
 
-    <div class="container mt-4">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let course of this.courses; let i = index"
-                    [ngClass]="i === currentCourseEntity ? 'active' : ''"
-                    [ngClass]="isCurrentFavouriteCourse(course) ? 'success' : ''">
-                    <td *ngIf="course">{{course.title}}</td>
-                    <td *ngIf="course">{{course.description}}</td>
-                    <td *ngIf="course">{{courseUtils.getAverageRating(course)}}</td>
-                    <td *ngIf="course"><button class="btn-link glyphicon glyphicon-edit"
-                            (click)="courseVoteSelect(i)"></button></td>
-                    <td *ngIf="course && !isCurrentFavouriteCourse(course)"><button
-                            class="btn-link glyphicon glyphicon-ok" (click)="courseFavourite(course)"></button></td>
-                    <td *ngIf="course && isCurrentFavouriteCourse(course)"><button
-                            class="btn-link glyphicon glyphicon-remove" (click)="courseUnfavourite(course)"></button></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-md-2">
+      <a class="btn btn-outline-info btn-block" routerLink="/course-add">Add new</a>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h5 *ngIf="selectedCourseTitle">You mark {{ selectedCourseTitle }} as your favorite course.</h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4" *ngFor="let course of courses">
+    <app-course-list-item [course]="course"
+                         (courseSelected)="onMovieSelected($event)"
+                         (courseDeleted)="onDelete($event)"></app-course-list-item>
+  </div>
+</div>
