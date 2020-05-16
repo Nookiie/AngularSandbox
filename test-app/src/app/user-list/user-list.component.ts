@@ -18,7 +18,6 @@ export class UserListComponent implements OnInit {
   @Output() userSelected = new EventEmitter<string>();
   @Output() userDeleted = new EventEmitter<number>();
 
- 
   selectedUserUsername: string;
 
   destroy$ = new Subject<boolean>();
@@ -42,11 +41,11 @@ export class UserListComponent implements OnInit {
     this.user = {
       username: '',
       password: '',
-      fname:'',
-      lname:'',
-      email:'', 
+      fname: '',
+      lname: '',
+      email: '',
+    }
   }
-}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -92,12 +91,25 @@ export class UserListComponent implements OnInit {
         console.log(error);
       });
   }
-  onSelectClick(): void {
-    this.userSelected.emit(this.user.username);
+
+  private getUser(id: number): void {
+    this.userService.getUserById(id).pipe()
+      .subscribe(response => {
+        this.user = response;
+      }, error => {
+        console.log(error);
+      })
   }
 
   onDeleteClick(id: number): void {
     this.userService.deleteUser(id).pipe()
-    .subscribe(() => this.getUsers());
+      .subscribe(() => this.getUsers());
+  }
+
+  onBlockClick(id: number): void {
+    let user = this.users[id];
+    this.userService.blockUser(user);
+
+    console.log(user);
   }
 }

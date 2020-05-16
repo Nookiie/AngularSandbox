@@ -3,12 +3,13 @@ import { User } from '../model/user';
 import { InjectableCompiler } from '@angular/compiler/src/injectable_compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Course } from '../model/course';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: "root"
 })
-export class UserService 
-{
+export class UserService {
   readonly url = "http://localhost:3000/users";
 
   constructor(private http: HttpClient) {
@@ -37,6 +38,18 @@ export class UserService
     } else {
       return this.addUser(user);
     }
+  }
+
+  blockUser(user: User): Observable<User> {
+    user.isBlocked = !user.isBlocked;
+    
+    return this.updateUser(user);
+  }
+
+  courseFavouriteUser(user: User, course: Course) {
+    user.favouriteCourses.push(course);
+
+    return this.updateUser(user);
   }
 
   deleteUser(id: number): Observable<User> {

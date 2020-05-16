@@ -66,7 +66,10 @@ export class RegisterFormComponent implements OnInit {
         password: '',
         fname: '',
         lname: '',
-        email: ''
+        email: '',
+        isBlocked:false,
+        isAdmin:false,
+        favouriteCourses:[]
       }
     }
     this.formGroup = this.fb.group({

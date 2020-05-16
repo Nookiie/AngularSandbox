@@ -66,15 +66,19 @@
       "password": "maman98a",
       "fname": "David",
       "lname": "Peterbough",
-      "email": "maman@gmail.com"
+      "email": "maman@gmail.com",
+      "isBlocked": false,
+      "isAdmin": true,
+      "favouriteCourses": []
     },
     {
       "id": 2,
       "username": "maman68",
       "password": "maman68ada",
-      "fname": "Viktorada",
+      "fname": "Viktoradaadaa",
       "lname": "Gill",
-      "email": "davar@gmail.com"
+      "email": "davar@gmail.com",
+      "favouriteCourses": []
     },
     {
       "id": 4,
@@ -82,7 +86,10 @@
       "password": "sdadsasda",
       "fname": "saddas",
       "lname": "dsadasd",
-      "email": "adasdas2@asd"
+      "email": "adasdas2@asd",
+      "isBlocked": false,
+      "isAdmin": true,
+      "favouriteCourses": []
     }
   ]
 }

@@ -17,6 +17,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { CourseListItemComponent } from './course-list-item/course-list-item.component';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { UserListItemComponent } from './user-list-item/user-list-item.component';
+import { JsonGetService } from 'src/assets/services/json.get.service';
 
 const routes: Route[] = [
   {
@@ -42,6 +43,10 @@ const routes: Route[] = [
   {
     path: "user-list",
     component: UserListComponent
+  },
+  {
+    path: 'account-edit',
+    component: AccountEditComponent
   },
   {
     path: 'account-edit/:id',

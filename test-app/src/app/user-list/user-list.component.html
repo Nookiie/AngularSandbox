@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of this.users; let i = index;">
+        <tr *ngFor="let user of this.users; let i = index;" [ngClass] = "user.isBlocked ? 'warning' : ''">
           <td *ngIf="user">{{user.username}}</td>
           <td *ngIf="user">{{user.password}}</td>
           <td *ngIf="user">{{user.fname}}</td>
@@ -40,6 +40,7 @@
           <td *ngIf="user">{{user.email}}</td>
           <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" (click)="onDeleteClick(i)"></button></td>
           <td *ngIf="user"><button class="btn-link glyphicon glyphicon-edit" [routerLink]="['/user-add', user.id]"></button></td>
+          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-lock"(click)="onBlockClick(i)"></button></td>
         </tr>
       </tbody>
     </table>

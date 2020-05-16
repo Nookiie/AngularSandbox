@@ -1,33 +1,41 @@
 <!DOCTYPE HTML5>
 
-<html>
-
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Courses Application</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Course Application</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink = "user-list">Users</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="user-list">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink = "course-list">Courses</a>
+        <a class="nav-link" routerLink="course-list">Courses</a>
+      </li>
+    </ul>
+    <ul class = "navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="'account-edit'"><span class="glyphicon glyphicon-user"></span>My Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="register-form"><span class="glyphicon glyphicon-user"></span>Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="login-form"><span class="glyphicon glyphicon-log-in"></span>Login</a>
       </li>
     </ul>
   </div>
 </nav>
 
-</html>
-
-<div class = "container mt-4">
+<div class="container mt-4">
   <router-outlet></router-outlet>
 </div>
+

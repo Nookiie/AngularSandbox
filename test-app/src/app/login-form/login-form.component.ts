@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/assets/model/user';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from 'src/assets/services/users.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-login-form',
@@ -11,7 +14,16 @@ export class LoginFormComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private userService: UserService) {
+      this.user = {
+        username:'',
+        password:'',
+        lname:'',
+        fname:'',
+        email:''
+      };
+
     this.formGroup = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]]
@@ -20,64 +32,54 @@ export class LoginFormComponent implements OnInit {
 
   showError: boolean;
   currentLoggedInUser: User;
-  isAdmin: boolean;
 
-  userNameInput: string;
-  userPassInput: string;
-
-  users: User[] = [
-    {
-        "username": "maman59",
-        "password": "maman98",
-        "fname": "David",
-        "lname": "Peterbough",
-        "email":"maman@gmail.com",
-        "isAdmin":false,
-        "isBlocked":false
-    },
-    {
-        "username": "maman68",
-        "password": "maman68",
-        "fname": "Viktor",
-        "lname": "Gill",
-        "email": "davar@gmail.com",
-        "isAdmin":true,
-        "isBlocked":false
-    },
-    {
-        "username": "some_stupid_username",
-        "password": "some_stupid_password",
-        "fname": "George",
-        "lname": "Smith",
-        "email":"george.smith@gmail.com",
-        "isAdmin":false,
-        "isBlocked":false
-    }
-];
+  users: User[];
+  user: User;
 
   onSubmit(): void {
-    if (this.formGroup.valid){
-      this.authenticate(this.formGroup.value.username, this.formGroup.value.password)
+    if (this.formGroup.valid) {
+      this.login(this.formGroup.value.username, this.formGroup.value.password)
     }
   }
 
   authenticate(username: string, password: string): boolean {
-    let user = this.users.find(x => x.username === username 
-      && x.password === password);
+    this.setUser(username, password)
 
-    if (user != null) {
-      this.currentLoggedInUser = user;
-      console.log("User: " + user.username + " has logged in");
+    let user = this.users.find(x => x.username === username
+      && x.password === password)
 
-      return true;
+    if (user) {
+      console.log("Welcome, " + this.user.username);
+
+      this.setUser(username, password);
+      
+      return false;
     }
 
     console.log("Access Denied");
     return false;
   }
 
-  ngOnInit(): void {
-    
+  private setUser(username: string, password: string): void {
+    this.user = this.users.find(x => x.username === username)
   }
 
+  login(username: string, password: string): void {
+    if(this.authenticate(username, password)){
+
+    }
+  }
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  private getUsers(searchValue?: string): void {
+    this.userService.getUsers(searchValue).pipe()
+      .subscribe(response => {
+        this.users = response;
+      }, error => {
+        console.log(error);
+      });
+  }
 }
