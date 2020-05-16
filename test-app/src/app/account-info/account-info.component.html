@@ -1,0 +1,32 @@
+<div class="container">
+    <h1 class="mb-4 text-primary text-center">Change Account Info</h1>
+    <div class="container">
+      <ul class = "list">
+        <li>Username: {{ user.username }}</li>
+        <li>Your password: {{ user.password }}</li>
+        <li>First Name: {{ user.fname }}</li>
+        <li>Last Name: {{ user.lname }}</li>
+        <li>Email: {{ user.email }}</li>
+      </ul>
+      <button class="btn btn-info" [routerLink]="['/account-edit', user.id]">Change</button>
+    </div>
+  
+    <div class="form-group">
+      <h1 class="text-primary text-center">Favourite Courses</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Personal Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of user.favouriteCourses; let i = index">
+            <td *ngIf="course">{{course.title}}</td>
+            <td *ngIf="course">{{getPersonalRating(course)}}</td>
+            <td *ngIf="course"><button (click)="unfavourite(course)" class = "glyphicon glyphicon-remove"> </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

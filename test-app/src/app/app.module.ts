@@ -18,11 +18,16 @@ import { CourseListItemComponent } from './course-list-item/course-list-item.com
 import { CourseFormComponent } from './course-form/course-form.component';
 import { UserListItemComponent } from './user-list-item/user-list-item.component';
 import { JsonGetService } from 'src/assets/services/json.get.service';
+import { AccountInfoComponent } from './account-info/account-info.component';
 
 const routes: Route[] = [
   {
     path: 'course-add',
     component: CourseFormComponent
+  },
+  {
+    path: 'account-edit/:id',
+    component: AccountEditComponent
   },
   {
     path: 'course-add/:id',
@@ -45,12 +50,12 @@ const routes: Route[] = [
     component: UserListComponent
   },
   {
-    path: 'account-edit',
-    component: AccountEditComponent
+    path: 'account-info',
+    component: AccountInfoComponent
   },
   {
-    path: 'account-edit/:id',
-    component: AccountEditComponent
+    path: 'account-info/:id',
+    component: AccountInfoComponent
   },
   {
     path: 'register-form',
@@ -75,6 +80,7 @@ const routes: Route[] = [
     UserManagementComponent,
     CourseManagementComponent,
     AccountEditComponent,
+    AccountInfoComponent,
     CourseListComponent,
     CourseListItemComponent,
     CourseFormComponent,

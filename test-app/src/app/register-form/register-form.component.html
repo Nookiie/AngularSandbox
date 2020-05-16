@@ -1,5 +1,6 @@
 <div class = "container">
-    <h1 class="mb-4 text-primary text-center">Register</h1>
+    <h1 *ngIf = "!formGroup.get('id').value" class="mb-4 text-primary text-center">Register</h1>
+    <h1 *ngIf = "formGroup.get('id').value" class="mb-4 text-primary text-center">Update</h1>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
         <div class = "form-group">
           <label for="username">Username</label>

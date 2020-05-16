@@ -17,118 +17,70 @@ import { CourseUtils } from 'src/assets/utils/courseUtils';
 })
 
 export class AccountEditComponent implements OnInit {
-  @Input() user: User;
-
-  @Output() userSelected = new EventEmitter<string>();
-  @Output() userDeleted = new EventEmitter<number>();
-
-  selectedUserUsername: string;
+  formGroup: FormGroup;
+  user: User;
 
   destroy$ = new Subject<boolean>();
 
-  formGroup: FormGroup;
-  courseUtils: CourseUtils = new CourseUtils();
-  showErrorCanNotVoteTwice: boolean;
-  currentCourseEntity: number;
-  defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  users: User[]
-  courses: Course[];
-
   constructor(private fb: FormBuilder,
-    private userService: UserService, ) {
-    this.formGroup = this.fb.group({
-
-    });
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.user = {
-      username: '',
-      password: '',
-      fname: '',
-      lname: '',
-      email: ''
-    }
+    this.route.params.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(params => {
+      if (params.id) {
+        this.userService.getUserById(params.id).pipe(
+          takeUntil(this.destroy$)
+        ).subscribe(response => {
+          this.user = response;
 
-    this.getUsers();
-    this.getUser(2);
-  }
-
-  onUserSelected(username: string): void {
-    this.selectedUserUsername = username;
-  }
-
-  onSearch(): void {
-    const searchValue = this.formGroup.controls.search.value;
-
-    this.getUsers(searchValue);
-  }
-
-  onClearSearch(): void {
-    this.formGroup.get('search').setValue(null);
-
-    this.getUsers();
-  }
-
-  onDelete(id: number): void {
-    this.userService.deleteUser(id).pipe(
-    ).subscribe(() => {
-      this.getUsers();
+          this.buildForm();
+        });
+      }
     });
+
+    this.buildForm();
   }
 
-  private getUsers(searchValue?: string): void {
-    this.userService.getUsers(searchValue).pipe()
-      .subscribe(response => {
-        this.users = response;
-      });
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
-  private getUser(id: number): void {
-    this.userService.getUserById(id).pipe()
-      .subscribe(response => {
-        this.user = response;
-      }, error => {
-        console.log(error);
-      })
-  }
-
-  onDeleteClick(id: number): void {
-    this.userService.deleteUser(id).pipe()
-      .subscribe(() => this.getUsers());
-  }
-
-  onBlockClick(id: number): void {
-    let user = this.users[id];
-    this.userService.blockUser(user);
+  onSubmit(): void {
+    const user = this.formGroup.value;
 
     console.log(user);
+
+    this.userService.saveUser(user).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() =>
+      this.router.navigate(['/account-info']));
   }
 
-  getPersonalRating(course: Course): string {
-    let rating;
-    try {
-      rating = course.ratings.find(x =>
-        x.username === this.user.username).rating
+  private buildForm(): void {
+    if (!this.user) {
+      this.user = {
+        username: '',
+        password: '',
+        fname: '',
+        lname: '',
+        email: '',
+        isBlocked:false,
+        isAdmin:false,
+        favouriteCourses:[]
+      }
     }
-    catch{
-      return "No Rating Given";
-    }
-
-    if (rating === null) {
-      return "No Rating Given";
-    }
-
-    return rating.toString();
-  }
-
-  unfavourite(course: Course) {
-    let courseIndex = this.user.favouriteCourses.indexOf(course);
-
-    delete this.user.favouriteCourses[courseIndex];
-  }
-  onSubmit(): void {
-
+    this.formGroup = this.fb.group({
+      id: [this.user.id],
+      username: [this.user.username, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      password: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
+      fname: [this.user.fname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+    });
   }
 }
