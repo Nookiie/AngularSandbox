@@ -17,7 +17,7 @@ export class UserService
   getUsers(searchValue?: string): Observable<User[]> {
     if (searchValue) {
       let params = new HttpParams();
-      params = params.append('title', searchValue);
+      params = params.append('username', searchValue);
 
       return this.http.get<User[]>(this.url, {
         params

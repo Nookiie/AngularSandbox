@@ -93,16 +93,10 @@
             <small *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.required"
             class="text-danger">This field is required. </small>
 
-            <small *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.minlength"
-            class="text-danger">Email is too short. </small>
-  
-            <small *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.maxlength" 
-            class="text-danger">Email is too long. </small>
-
             <small *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.email" 
             class="text-danger">Email is not valid. </small>
           </div>
 
-          <button type="submit" class = "btn btn-info">Register</button>
+          <button type="submit" class = "btn btn-info" [disabled]="formGroup.invalid">Register</button>
     </form>
 </div>

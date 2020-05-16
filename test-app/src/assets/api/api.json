@@ -61,31 +61,28 @@
   ],
   "users": [
     {
+      "id": 1,
       "username": "maman59",
-      "password": "maman98",
+      "password": "maman98a",
       "fname": "David",
       "lname": "Peterbough",
-      "email": "maman@gmail.com",
-      "isAdmin": false,
-      "isBlocked": false
+      "email": "maman@gmail.com"
     },
     {
+      "id": 2,
       "username": "maman68",
-      "password": "maman68",
-      "fname": "Viktor",
+      "password": "maman68ada",
+      "fname": "Viktorada",
       "lname": "Gill",
-      "email": "davar@gmail.com",
-      "isAdmin": true,
-      "isBlocked": false
+      "email": "davar@gmail.com"
     },
     {
-      "username": "some_stupid_username",
-      "password": "some_stupid_password",
-      "fname": "George",
-      "lname": "Smith",
-      "email": "george.smith@gmail.com",
-      "isAdmin": false,
-      "isBlocked": false
+      "id": 4,
+      "username": "asdada",
+      "password": "sdadsasda",
+      "fname": "saddas",
+      "lname": "dsadasd",
+      "email": "adasdas2@asd"
     }
   ]
 }

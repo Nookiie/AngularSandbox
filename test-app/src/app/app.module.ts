@@ -16,16 +16,9 @@ import { from } from 'rxjs';
 import { UserListComponent } from './user-list/user-list.component';
 import { CourseListItemComponent } from './course-list-item/course-list-item.component';
 import { CourseFormComponent } from './course-form/course-form.component';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
 
 const routes: Route[] = [
-  // {
-  //   path: 'courses-table-list',
-  //   component: MoviesTableComponent
-  // },
-  // {
-  //   path: 'users-list',
-  //   component: MoviesCardsListComponent
-  // },
   {
     path: 'course-add',
     component: CourseFormComponent
@@ -34,23 +27,14 @@ const routes: Route[] = [
     path: 'course-add/:id',
     component: CourseFormComponent
   },
-  // {
-  //   path: 'course-add/:id',
-  //   component: MovieReactiveFormComponent
-  // },
-  // {
-  //   path: 'movie-add/:id',
-  //   component: MovieReactiveFormComponent
-  // },
-  // {
-  //   path: 'user-add/',
-  //   component: MovieReactiveFormComponent
-  // },
-  // {
-  //   path: 'user-add/:id',
-  //   component: MovieReactiveFormComponent
-  // },
-
+  {
+    path: 'user-add',
+    component: RegisterFormComponent
+  },
+  {
+    path: 'user-add/:id',
+    component: RegisterFormComponent
+  },
   {
     path: "course-list",
     component: CourseListComponent
@@ -73,7 +57,7 @@ const routes: Route[] = [
   },
   {
     path: '**',
-    redirectTo: 'courses-table-list'
+    redirectTo: 'user-list'
   },
   
 ];
@@ -89,6 +73,8 @@ const routes: Route[] = [
     CourseListComponent,
     CourseListItemComponent,
     CourseFormComponent,
+    UserListItemComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/assets/model/user';
 import { AppComponent } from '../app.component';
 import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { Subject } from 'rxjs';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/assets/services/users.service';
+import { Course } from 'src/assets/model/course';
 
 @Component({
   selector: 'app-user-list',
@@ -12,84 +13,91 @@ import { UserService } from 'src/assets/services/users.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  @Input() user: User;
 
-  showError: boolean;
-  isLoggedIn: boolean;
-  isAdmin: boolean;
-  currentUpdateEntity: number;
-  courseUtils: CourseUtils = new CourseUtils();
+  @Output() userSelected = new EventEmitter<string>();
+  @Output() userDeleted = new EventEmitter<number>();
+
+ 
+  selectedUserUsername: string;
+
+  destroy$ = new Subject<boolean>();
 
   formGroup: FormGroup;
 
-  users: User[];
+  courseUtils: CourseUtils = new CourseUtils();
 
-  constructor(private userService: UserService, private fb: FormBuilder){
+  showErrorCanNotVoteTwice: boolean;
+  currentCourseEntity: number;
+  defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+  users: User[]
+  courses: Course[];
+
+  constructor(private fb: FormBuilder,
+    private userService: UserService) {
+    this.formGroup = this.fb.group({
+
+    });
+    this.user = {
+      username: '',
+      password: '',
+      fname:'',
+      lname:'',
+      email:'', 
+  }
+}
+
+  ngOnInit(): void {
+    this.formGroup = this.fb.group({
+      search: ['']
+    });
+
+    this.getUsers();
   }
 
-  userOnRemoveClick(index: number): void {
-    delete this.users[index];
+  onUserSelected(username: string): void {
+    this.selectedUserUsername = username;
   }
 
-  userOnBlockClick(index: number): void {
-    if (this.users[index].isBlocked == null || this.users[index].isBlocked === false) {
-      this.users[index].isBlocked = true;
+  onSearch(): void {
+    const searchValue = this.formGroup.controls.search.value;
 
-      console.log("Blocked user: " + this.users[index].username);
-
-    }
-    else {
-      this.users[index].isBlocked = false;
-
-      console.log("Unblocked user: " + this.users[index].username);
-    }
+    this.getUsers(searchValue);
   }
-ngOnInit(): void {
-    // this.getMovies();
 
-    // this.formGroup = this.fb.group({
-    //   search: ['']
-    };
-  
+  onClearSearch(): void {
+    this.formGroup.get('search').setValue(null);
 
-//   ngOnDestroy(): void {
-//     this.destroy$.next(true);
-//     this.destroy$.unsubscribe();
-//   }
-
-//   onMovieSelected(title: string): void {
-//     this.selectedMovieTitle = title;
-//   }
-
-//   onSearch(): void {
-//     // get title from form
-//     const searchValue = this.formGroup.controls.search.value;
-
-//     this.getMovies(searchValue);
-//   }
-
-//   onClearSearch(): void {
-//     this.formGroup.get('search').setValue(null);
-
-//     this.getMovies();
-//   }
-
-//   onDelete(id: number): void {
-//     this.moviesService.deleteMovie(id).pipe(
-//       takeUntil(this.destroy$)
-//     ).subscribe(() => {
-//       this.getMovies();
-//     });
-//   }
-
-//   private getMovies(searchValue?: string): void {
-//     this.moviesService.getMovies(searchValue).pipe(
-//       // map(response => response.filter(x => x.rating > 7)),
-//       takeUntil(this.destroy$)
-//     ).subscribe(response => {
-//       this.movies = response;
-//     }, error => {
-//       console.log(error);
-//     });
-// }
+    this.getUsers();
   }
+
+  onDelete(id: number): void {
+    this.userService.deleteUser(id).pipe(
+    ).subscribe(() => {
+      this.getUsers();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  private getUsers(searchValue?: string): void {
+    this.userService.getUsers(searchValue).pipe()
+      .subscribe(response => {
+        this.users = response;
+      }, error => {
+        console.log(error);
+      });
+  }
+  onSelectClick(): void {
+    this.userSelected.emit(this.user.username);
+  }
+
+  onDeleteClick(id: number): void {
+    this.userService.deleteUser(id).pipe()
+    .subscribe(() => this.getUsers());
+  }
+}

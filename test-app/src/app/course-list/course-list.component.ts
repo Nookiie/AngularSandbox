@@ -45,7 +45,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.getCourses();
   }
 
-  onMovieSelected(title: string): void {
+  onCourseSelected(title: string): void {
     this.selectedCourseTitle = title;
   }
 

@@ -1,4 +1,25 @@
-<h1 class="mb-4 text-primary text-center">Users List</h1>
+<h3 class="mb-4 text-primary text-center">User List View</h3>
+
+<div class="row mb-4">
+  <div class="col-md-12 d-flex justify-content-between">
+    <div class="col-md-10">
+      <form class="d-flex" [formGroup]="formGroup" (ngSubmit)="onSearch()">
+        <input type="text"
+               class="form-control mr-2"
+               placeholder="Search by title..."
+               formControlName="search">
+
+        <button class="btn btn-outline-primary">Search</button>
+        <button class="btn btn-outline-dark ml-2" (click)="onClearSearch()">Clear</button>
+      </form>
+    </div>
+
+    <div class="col-md-2">
+      <a class="btn btn-outline-info btn-block" routerLink="/user-add">Add new</a>
+    </div>
+  </div>
+</div>
+
 <div class="container mt-4">
     <table class="table">
       <thead>
@@ -11,14 +32,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of this.users; let i = index">
+        <tr *ngFor="let user of this.users; let i = index;">
           <td *ngIf="user">{{user.username}}</td>
           <td *ngIf="user">{{user.password}}</td>
           <td *ngIf="user">{{user.fname}}</td>
           <td *ngIf="user">{{user.lname}}</td>
           <td *ngIf="user">{{user.email}}</td>
-          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" (click)="userOnRemoveClick(i)"></button></td>
-          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-edit" (click)="userOnBlockClick(i)"></button></td>
+          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" (click)="onDeleteClick(i)"></button></td>
+          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-edit" [routerLink]="['/user-add', user.id]"></button></td>
         </tr>
       </tbody>
     </table>
