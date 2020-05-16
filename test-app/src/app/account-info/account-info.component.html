@@ -1,12 +1,12 @@
 <div class="container">
     <h1 class="mb-4 text-primary text-center">Change Account Info</h1>
     <div class="container">
-      <ul class = "list">
-        <li>Username: {{ user.username }}</li>
-        <li>Your password: {{ user.password }}</li>
-        <li>First Name: {{ user.fname }}</li>
-        <li>Last Name: {{ user.lname }}</li>
-        <li>Email: {{ user.email }}</li>
+      <ul class = "list-group list-group">
+        <li class = "list-group-item">Username: {{ user.username }}</li>
+        <li class = "list-group-item">Your password: {{ user.password }}</li>
+        <li class = "list-group-item">First Name: {{ user.fname }}</li>
+        <li class = "list-group-item">Last Name: {{ user.lname }}</li>
+        <li class = "list-group-item">Email: {{ user.email }}</li>
       </ul>
       <button class="btn btn-info" [routerLink]="['/account-edit', user.id]">Change</button>
     </div>
