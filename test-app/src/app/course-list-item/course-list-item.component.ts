@@ -1,25 +1,23 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Course } from 'src/assets/model/course';
+import { CoursesService } from 'src/assets/services/courses.service';
+import { CourseRating } from 'src/assets/model/courseRating';
 
 @Component({
   selector: 'app-course-list-item',
   templateUrl: './course-list-item.component.html',
   styleUrls: ['./course-list-item.component.scss']
 })
-export class CourseListItemComponent implements OnInit {
-
+export class CourseListItemComponent implements OnInit, OnChanges {
 
   @Input() course: Course;
 
-  @Output() courseSelected = new EventEmitter<string>();
+  @Output() courseSelected = new EventEmitter<Course>();
+  @Output() courseRated = new EventEmitter<Course>();
   @Output() courseDeleted = new EventEmitter<number>();
 
   constructor() {
-    this.course = {
-      title: '',
-      description: '',
-      dateOfPublishing:'' 
-    };
+
    }
 
    getDescription(): string {
@@ -29,9 +27,23 @@ export class CourseListItemComponent implements OnInit {
 
     return this.course.description
   }
+  
+  getAverageRating (): string{
+    let sum = 0;
+
+    this.course.ratings.forEach(x => {
+       sum += x.rating;
+    });
+
+    if(sum === 0){
+      return "No Ratings"
+    }
+   
+    return (sum / this.course.ratings.length).toPrecision(2);
+}
 
   onSelectClick(): void {
-    this.courseSelected.emit(this.course.title);
+    this.courseSelected.emit(this.course);
   }
 
   onDeleteClick(): void {
@@ -42,4 +54,7 @@ export class CourseListItemComponent implements OnInit {
     
   }
 
+  ngOnChanges(): void{
+    
+  }
 }

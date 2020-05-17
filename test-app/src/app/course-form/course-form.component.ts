@@ -63,14 +63,16 @@ export class CourseFormComponent implements OnInit {
       this.course = {
         title: '',
         description: '',
-        dateOfPublishing: ''
+        dateOfPublishing: '',
+        ratings:[]
       }
     }
     this.formGroup = this.fb.group({
       id: [this.course.id],
       title: [this.course.title, [Validators.required, Validators.minLength(5)]],
       description: [this.course.description],
-      dateOfPublish: [this.course.dateOfPublishing, [Validators.required]]
+      dateOfPublish: [this.course.dateOfPublishing, [Validators.required]],
+      ratings:[this.course.ratings]
     });
   }
 }

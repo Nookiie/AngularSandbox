@@ -36,7 +36,8 @@ export class AccountInfoComponent implements OnInit {
   courses: Course[];
 
   constructor(private fb: FormBuilder,
-    private userService: UserService, ) {
+    private userService: UserService, 
+    private courseService: CoursesService) {
     this.formGroup = this.fb.group({
 
     });
@@ -48,11 +49,18 @@ export class AccountInfoComponent implements OnInit {
       password: '',
       fname: '',
       lname: '',
-      email: ''
+      email: '',
+      favouriteCourses:[]
     }
 
     this.getUsers();
-    this.getUser(2);
+    this.getUser(3);
+
+    this.user.favouriteCourses.push({
+      title: 'InternetTechnologies',
+      description: 'sdad',
+      dateOfPublishing: 'sda'
+    });
   }
 
   onUserSelected(username: string): void {
@@ -92,6 +100,13 @@ export class AccountInfoComponent implements OnInit {
       }, error => {
         console.log(error);
       })
+  }
+
+  private getCourses(searchValue?: string): void {
+    this.courseService.getCourses(searchValue).pipe()
+      .subscribe(response => {
+        this.courses = response;
+      });
   }
 
   onDeleteClick(id: number): void {

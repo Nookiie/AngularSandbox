@@ -80,7 +80,8 @@ export class AccountEditComponent implements OnInit {
       username: [this.user.username, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       password: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
       fname: [this.user.fname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+      lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      favouriteCourses:[this.user.favouriteCourses]
     });
   }
 }

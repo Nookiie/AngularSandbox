@@ -4,10 +4,7 @@
   <div class="col-md-12 d-flex justify-content-between">
     <div class="col-md-10">
       <form class="d-flex" [formGroup]="formGroup" (ngSubmit)="onSearch()">
-        <input type="text"
-               class="form-control mr-2"
-               placeholder="Search by title..."
-               formControlName="search">
+        <input type="text" class="form-control mr-2" placeholder="Search by title..." formControlName="search">
 
         <button class="btn btn-outline-primary">Search</button>
         <button class="btn btn-outline-dark ml-2" (click)="onClearSearch()">Clear</button>
@@ -20,16 +17,26 @@
   </div>
 </div>
 
-<div class="row">
+<div *ngIf="selectedCourse" class="row">
   <div class="col-md-12">
-    <h5 *ngIf="selectedCourseTitle">You mark {{ selectedCourseTitle }} as your favourite course.</h5>
+    <h5 *ngIf="selectedCourse">You mark {{ selectedCourse.title }} as your selected course.</h5>
   </div>
 </div>
 
+<div *ngIf = "selectedCourse" class="row">
+  <div class="col-md-12">
+    <select class = "form-control" [(ngModel)]="selectedRating">
+      <option *ngFor="let rating of defaultRatings" [ngValue]="rating">{{rating}}</option>
+    </select>
+    <button class = "btn btn-info form-control" (click) = "onRateClick()">Rate</button>
+    <small *ngIf="debugRateMessage" class="text-info">{{debugRateMessage}}</small>
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col-md-4" *ngFor="let course of courses">
-    <app-course-list-item [course]="course"
-                         (courseSelected)="onCourseSelected($event)"
-                         (courseDeleted)="onDelete($event)"></app-course-list-item>
+    <app-course-list-item [course]="course" (courseSelected)="onCourseSelected($event)"
+      (courseDeleted)="onDelete($event)" (courseRated)="onCourseRated($event)"></app-course-list-item>
   </div>
 </div>

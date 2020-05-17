@@ -4,7 +4,8 @@ import { User } from 'src/assets/model/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { CoursesService } from 'src/assets/services/courses.service';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-course-list',
@@ -13,10 +14,10 @@ import { Subject } from 'rxjs';
 })
 export class CourseListComponent implements OnInit, OnDestroy {
 
-  course: Course[];
-  selectedCourseTitle: string;
+  selectedCourse: Course;
 
   destroy$ = new Subject<boolean>();
+  selectedRating: number;
 
   formGroup: FormGroup;
 
@@ -29,13 +30,15 @@ export class CourseListComponent implements OnInit, OnDestroy {
   users: User[]
   courses: Course[];
 
+  debugRateMessage: string;
+
   constructor(private fb: FormBuilder,
     private courseService: CoursesService) {
     this.formGroup = this.fb.group({
       rating: [0, [Validators.required, Validators.max(10), Validators.min(0)]],
     });
   }
-  
+
   // New Section
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -45,8 +48,12 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.getCourses();
   }
 
-  onCourseSelected(title: string): void {
-    this.selectedCourseTitle = title;
+  onCourseSelected(course: Course): void {
+    this.selectedCourse = course;
+  }
+
+  onCourseRated(course: Course): void{
+    this.selectedCourse = course;
   }
 
   onSearch(): void {
@@ -57,15 +64,57 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   onClearSearch(): void {
     this.formGroup.get('search').setValue(null);
+    this.selectedCourse = null;
+    this.debugRateMessage = null;
 
     this.getCourses();
   }
-  
+
   onDelete(id: number): void {
     this.courseService.deleteCourse(id).pipe(
     ).subscribe(() => {
       this.getCourses();
     });
+  }
+
+  onRateClick(): void{
+    this.getCourse();
+   
+    //TODO: change '' with applicable username
+    let course = this.selectedCourse.ratings.find(x => x.username == '1');
+    if (!course) {
+
+      this.selectedCourse.ratings.push({
+        username: '1',
+        rating: this.selectedRating
+      });
+
+      console.log(this.selectedCourse);
+      this.courseService.saveCourse(this.selectedCourse).pipe().subscribe();
+      
+      console.log(this.courses);
+  
+      this.debugRateMessage = "Successfully rated "
+        + this.selectedCourse.title
+        + " with a rating of " + this.selectedRating;
+
+    }
+    else{
+
+      this.selectedCourse.ratings.push({
+        username: '1',
+        rating: this.selectedRating
+      });
+      this.courseService.saveCourse(this.selectedCourse).pipe().subscribe();
+  
+      this.debugRateMessage = "Successfully updated "
+      + this.selectedCourse.title
+      + " with a rating of " + this.selectedRating;
+    }
+  }
+
+  getRating(rating: number) {
+    console.log(rating);
   }
 
   ngOnDestroy(): void {
@@ -81,4 +130,14 @@ export class CourseListComponent implements OnInit, OnDestroy {
         console.log(error);
       });
   }
+
+  private getCourse(searchValue?: string): void {
+    this.courseService.getCourseById(this.selectedCourse.id).pipe()
+      .subscribe(response => {
+        this.selectedCourse = response;
+      }, error => {
+        console.log(error);
+      });
+  }
+
 }
