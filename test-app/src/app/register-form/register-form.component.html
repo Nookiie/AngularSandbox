@@ -98,6 +98,7 @@
             class="text-danger">Email is not valid. </small>
           </div>
 
-          <button type="submit" class = "btn btn-info" [disabled]="formGroup.invalid">Register</button>
+          <button *ngIf="!formGroup.get('id').value" type="submit" class = "btn btn-info" [disabled]="formGroup.invalid">Register</button>
+          <button *ngIf="formGroup.get('id').value" type="submit" class = "btn btn-info" [disabled]="formGroup.invalid">Update</button>
     </form>
 </div>

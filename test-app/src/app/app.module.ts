@@ -19,6 +19,7 @@ import { CourseFormComponent } from './course-form/course-form.component';
 import { UserListItemComponent } from './user-list-item/user-list-item.component';
 import { JsonGetService } from 'src/assets/services/json.get.service';
 import { AccountInfoComponent } from './account-info/account-info.component';
+import { IndexComponent } from './index/index.component';
 
 const routes: Route[] = [
   {
@@ -66,8 +67,12 @@ const routes: Route[] = [
     component: LoginFormComponent
   },
   {
+    path: 'index',
+    component: IndexComponent
+  },
+  {
     path: '**',
-    redirectTo: 'user-list'
+    redirectTo: 'index'
   },
   
 ];
@@ -86,6 +91,7 @@ const routes: Route[] = [
     CourseFormComponent,
     UserListItemComponent,
     UserListComponent,
+    IndexComponent,
   ],
   imports: [
     BrowserModule,

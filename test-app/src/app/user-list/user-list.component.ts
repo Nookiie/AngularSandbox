@@ -39,11 +39,14 @@ export class UserListComponent implements OnInit {
 
     });
     this.user = {
+      id:1,
       username: '',
       password: '',
       fname: '',
       lname: '',
       email: '',
+      isBlocked: false,
+      isAdmin: false,
     }
   }
 
@@ -107,9 +110,11 @@ export class UserListComponent implements OnInit {
   }
 
   onBlockClick(id: number): void {
-    let user = this.users[id];
-    this.userService.blockUser(user);
+    this.getUsers()
+    this.user = this.users[id];
+    this.user.isBlocked = !this.user.isBlocked;
+    console.log(this.user);
 
-    console.log(user);
+    this.userService.saveUser(this.user).subscribe();
   }
 }
