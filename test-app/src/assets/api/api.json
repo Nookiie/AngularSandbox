@@ -64,10 +64,6 @@
         {
           "username": "1",
           "rating": 10
-        },
-        {
-          "username": "1",
-          "rating": 7
         }
       ]
     },
@@ -115,17 +111,19 @@
       "username": "maman68",
       "password": "maman68ada",
       "fname": "Viktor",
-      "lname": "McGill",
+      "lname": "Gill",
       "email": "something@so"
     },
     {
-      "id": 4,
+      "id": 3,
       "username": "asdada",
       "password": "sdadsasda",
-      "fname": "saddasasasa",
+      "fname": "saddas",
       "lname": "dsadasd",
       "email": "adasdas2@asd",
-      "isBlocked": false
+      "isBlocked": false,
+      "isAdmin": true,
+      "favouriteCourses": []
     }
   ]
 }

@@ -1,0 +1,91 @@
+<div class="container">
+  <h1 *ngIf="!formGroup.get('id').value" class="mb-4 text-primary text-center">Register</h1>
+  <h1 *ngIf="formGroup.get('id').value" class="mb-4 text-primary text-center">Update</h1>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" class="form-control" placeholder="Username"
+        aria-describedby="helpId" formControlName="username">
+      <small
+        *ngIf="formGroup.get('username').touched && formGroup.get('username').invalid && formGroup.get('username').errors.required"
+        class="text-danger">This field is required.</small>
+
+      <small
+        *ngIf="formGroup.get('fname').touched && formGroup.get('username').invalid && formGroup.get('username').errors.minlength"
+        id="helpId" class="text-muted">Username is too short</small>
+
+      <small
+        *ngIf="formGroup.get('username').touched && formGroup.get('username').invalid && formGroup.get('username').errors.maxlength"
+        id="helpId" class="text-muted">Username is too long</small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Password..."
+        aria-describedby="helpId" formControlName="password">
+
+      <small *ngIf="formGroup.get('password').touched 
+            && formGroup.get('password').invalid 
+            && formGroup.get('password').errors.required" class="text-danger">Password is required!</small>
+
+      <small *ngIf="formGroup.get('password').touched 
+            && formGroup.get('password').invalid
+            && formGroup.get('password').errors.minlength" class="text-danger">Password is too short!</small>
+
+      <small *ngIf="formGroup.get('password').touched
+            && formGroup.get('password').invalid 
+            && formGroup.get('password').errors.maxlength" class="text-danger">Password is too long!</small>
+    </div>
+
+    <div class="form-group">
+      <label for="fname">First Name</label>
+      <input type="text" name="fname" id="fname" class="form-control" placeholder="First Name..."
+        formControlName="fname">
+      <small
+        *ngIf="formGroup.get('fname').touched && formGroup.get('fname').invalid && formGroup.get('fname').errors.required"
+        class="text-danger">This field is required.</small>
+
+      <small
+        *ngIf="formGroup.get('fname').touched && formGroup.get('fname').invalid && formGroup.get('fname').errors.minlength"
+        id="helpId" class="text-muted">First Name is too short</small>
+
+      <small
+        *ngIf="formGroup.get('fname').touched && formGroup.get('fname').invalid && formGroup.get('fname').errors.maxlength"
+        id="helpId" class="text-muted">First Name is too long</small>
+    </div>
+
+    <div class="form-group">
+      <label for="lname">Last Name</label>
+      <input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name..."
+        formControlName="lname">
+      <small
+        *ngIf="formGroup.get('lname').touched && formGroup.get('lname').invalid && formGroup.get('lname').errors.required"
+        class="text-danger">This field is required.</small>
+
+      <small
+        *ngIf="formGroup.get('lname').touched && formGroup.get('lname').invalid && formGroup.get('lname').errors.minlength"
+        id="helpId" class="text-muted">Last Name is too short</small>
+
+      <small
+        *ngIf="formGroup.get('lname').touched && formGroup.get('lname').invalid && formGroup.get('lname').errors.maxlength"
+        id="helpId" class="text-muted">Last Name is too long</small>
+    </div>
+
+    <div class="form-group">
+      <label for="fname">Email</label>
+      <input type="text" name="email" id="email" class="form-control" placeholder="Email..." formControlName="email">
+      <small
+        *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.required"
+        class="text-danger">This field is required. </small>
+
+      <small
+        *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.email"
+        class="text-danger">Email is not valid. </small>
+    </div>
+
+    <button *ngIf="!formGroup.get('id').value" type="submit" class="btn btn-info"
+      [disabled]="formGroup.invalid">Register</button>
+    <button *ngIf="formGroup.get('id').value" type="submit" class="btn btn-info"
+      [disabled]="formGroup.invalid">Update</button>
+  </form>
+</div>

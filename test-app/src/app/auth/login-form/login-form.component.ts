@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angula
 import { UserService } from 'src/assets/services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { stringify } from 'querystring';
+import { IndexComponent } from 'src/app/index/index.component';
 
 @Component({
   selector: 'app-login-form',
@@ -15,23 +16,16 @@ export class LoginFormComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private userService: UserService) {
-      this.user = {
-        username:'',
-        password:'',
-        lname:'',
-        fname:'',
-        email:''
-      };
-
+    private userService: UserService,
+    private router: Router) {
     this.formGroup = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: [''],
     });
   }
 
   showError: boolean;
-  currentLoggedInUser: User;
 
   users: User[];
   user: User;
@@ -42,31 +36,37 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  authenticate(username: string, password: string): boolean {
-    this.setUser(username, password)
-
-    let user = this.users.find(x => x.username === username
-      && x.password === password)
-
-    if (user) {
-      console.log("Welcome, " + this.user.username);
-
-      this.setUser(username, password);
-      
-      return false;
+  checkPassword(): boolean {
+    if (this.formGroup.get('password') === this.formGroup.get('confirmPassword')) {
+      return true;
     }
 
-    console.log("Access Denied");
     return false;
   }
 
-  private setUser(username: string, password: string): void {
-    this.user = this.users.find(x => x.username === username)
+  authenticate(email: string, password: string): User {
+    if (!this.checkPassword()) {
+      return;
+    }
+
+    let user = this.users.find(x => x.email === email
+      && x.password === password)
+
+    return user;
+  }
+
+  private setUser(user: User): void {
+    localStorage.setItem("currentUser", JSON.stringify(user));
   }
 
   login(username: string, password: string): void {
-    if(this.authenticate(username, password)){
+    let user = this.authenticate(username, password)
+    if (user) {
+      this.setUser(user);
 
+      console.log("Welcome " + user.username);
+
+      this.router.navigate(["/index"]);
     }
   }
 

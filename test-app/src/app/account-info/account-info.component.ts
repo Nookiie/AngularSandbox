@@ -53,14 +53,7 @@ export class AccountInfoComponent implements OnInit {
       favouriteCourses:[]
     }
 
-    this.getUsers();
-    this.getUser(3);
-
-    this.user.favouriteCourses.push({
-      title: 'InternetTechnologies',
-      description: 'sdad',
-      dateOfPublishing: 'sda'
-    });
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
   }
 
   onUserSelected(username: string): void {

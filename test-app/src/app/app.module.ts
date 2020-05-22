@@ -6,20 +6,19 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RegisterFormComponent } from './register-form/register-form.component';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { UserManagementComponent } from './user-management/user-management.component';
-import { CourseManagementComponent } from './course-management/course-management.component';
+import { RegisterFormComponent } from './auth/register-form/register-form.component';
+import { LoginFormComponent } from './auth/login-form/login-form.component';
+import { UserManagementComponent } from './user/user-management/user-management.component';
+import { CourseManagementComponent } from './course/course-management/course-management.component';
 import { AccountEditComponent } from './account-edit/account-edit.component';
-import { CourseListComponent } from './course-list/course-list.component';
-import { from } from 'rxjs';
-import { UserListComponent } from './user-list/user-list.component';
-import { CourseListItemComponent } from './course-list-item/course-list-item.component';
-import { CourseFormComponent } from './course-form/course-form.component';
-import { UserListItemComponent } from './user-list-item/user-list-item.component';
-import { JsonGetService } from 'src/assets/services/json.get.service';
+import { CourseListComponent } from './course/course-list/course-list.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { CourseListItemComponent } from './course/course-list-item/course-list-item.component';
+import { CourseFormComponent } from './course/course-form/course-form.component';
+import { UserListItemComponent } from './user/user-list-item/user-list-item.component';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { IndexComponent } from './index/index.component';
+import { UserFormComponent } from './user/user-form/user-form.component';
 
 const routes: Route[] = [
   {
@@ -36,11 +35,11 @@ const routes: Route[] = [
   },
   {
     path: 'user-add',
-    component: RegisterFormComponent
+    component: UserFormComponent
   },
   {
     path: 'user-add/:id',
-    component: RegisterFormComponent
+    component: UserFormComponent
   },
   {
     path: "course-list",
@@ -92,6 +91,7 @@ const routes: Route[] = [
     UserListItemComponent,
     UserListComponent,
     IndexComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,

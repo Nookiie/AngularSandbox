@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/assets/model/user';
-import { AppComponent } from '../app.component';
 import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -77,7 +76,7 @@ export class UserListComponent implements OnInit {
   onDelete(id: number): void {
     this.userService.deleteUser(id).pipe(
     ).subscribe(() => {
-      this.getUsers();
+      this.getUsers()
     });
   }
 
