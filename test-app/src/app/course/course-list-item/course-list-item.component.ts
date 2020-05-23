@@ -16,6 +16,8 @@ export class CourseListItemComponent implements OnInit, OnChanges {
   @Output() courseRated = new EventEmitter<Course>();
   @Output() courseDeleted = new EventEmitter<number>();
 
+  isCurrentUserAdmin: boolean;
+
   constructor() {
 
    }
@@ -51,7 +53,9 @@ export class CourseListItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    this.isCurrentUserAdmin = user.isAdmin;
+
   }
 
   ngOnChanges(): void{

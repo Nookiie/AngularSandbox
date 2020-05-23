@@ -11,7 +11,7 @@
       </form>
     </div>
 
-    <div class="col-md-2">
+    <div *ngIf="isCurrentUserAdmin" class="col-md-2">
       <a class="btn btn-outline-info btn-block" routerLink="/course-add">Add new</a>
     </div>
   </div>

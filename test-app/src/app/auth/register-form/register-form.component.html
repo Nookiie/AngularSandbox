@@ -1,7 +1,7 @@
 <div class="container">
-  <h1 *ngIf="!formGroup.get('id').value" class="mb-4 text-primary text-center">Register</h1>
-  <h1 *ngIf="formGroup.get('id').value" class="mb-4 text-primary text-center">Update</h1>
+  <h1 class="mb-4 text-primary text-center">Register</h1>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
+    <h3 *ngIf="registerErrorMessage">{{registerErrorMessage}}</h3>
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" name="username" id="username" class="form-control" placeholder="Username"
@@ -83,9 +83,7 @@
         class="text-danger">Email is not valid. </small>
     </div>
 
-    <button *ngIf="!formGroup.get('id').value" type="submit" class="btn btn-info"
+    <button type="submit" class="btn btn-info"
       [disabled]="formGroup.invalid">Register</button>
-    <button *ngIf="formGroup.get('id').value" type="submit" class="btn btn-info"
-      [disabled]="formGroup.invalid">Update</button>
   </form>
 </div>

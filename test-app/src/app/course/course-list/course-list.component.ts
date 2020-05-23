@@ -6,6 +6,7 @@ import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { CoursesService } from 'src/assets/services/courses.service';
 import { Subject, timer } from 'rxjs';
 import { stringify } from 'querystring';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-course-list',
@@ -18,6 +19,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject<boolean>();
   selectedRating: number;
+  isCurrentUserAdmin: boolean;
 
   formGroup: FormGroup;
 
@@ -44,6 +46,9 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.formGroup = this.fb.group({
       search: ['']
     });
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    this.isCurrentUserAdmin = user.isAdmin;
+    console.log(user);
 
     this.getCourses();
   }

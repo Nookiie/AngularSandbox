@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { User } from '../assets/model/user';
-import { Course } from '../assets/model/course';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { CourseRating } from '../assets/model/courseRating';
-import { FormsModule } from '@angular/forms';
-import { FormControl, FormGroup } from '@angular/forms';
-
-import { UserManagement } from 'src/assets/logic/userManagement';
-import { CourseManagement } from 'src/assets/logic/courseManagement';
+import { Subject } from 'rxjs';
+import { AuthenticationService } from './auth/services/authentication.service';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { User } from 'src/assets/model/user';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +12,50 @@ import { CourseManagement } from 'src/assets/logic/courseManagement';
 })
 
 export class AppComponent {
-  title = 'test-app';
+  title = 'cinema-app';
+  currentUser: User;
+  hasLoggedIn: boolean;
+  isCurrentUserAdmin: boolean;
 
+  destroy$ = new Subject<boolean>();
+
+  constructor(private authService: AuthenticationService,
+    private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.authService.getHasLoggedIn().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(response => this.hasLoggedIn = response);
+
+    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (this.currentUser) {
+      this.hasLoggedIn = true;
+      if (this.currentUser.isAdmin) {
+        this.isCurrentUserAdmin = true;
+      }
+      else {
+        this.isCurrentUserAdmin = false;
+      }
+    }
+    else {
+      this.hasLoggedIn = false;
+    }
+
+
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  onLogoutClick(): void {
+    this.authService.logout();
+
+    this.hasLoggedIn = false;
+    this.isCurrentUserAdmin = false;
+
+    this.router.navigate(['login-form']);
+  }
 }

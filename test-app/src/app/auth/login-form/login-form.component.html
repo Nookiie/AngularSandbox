@@ -2,13 +2,14 @@
   <h1 class="mb-4 text-primary text-center">Login</h1>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
     <div class="form-group">
-      <label for="email">email</label>
-      <input type="text" name="email" id="email" class="form-control" placeholder="email..." aria-describedby="helpId"
+      <h3 *ngIf="loginErrorMessage" class="text-danger">{{loginErrorMessage}}</h3>
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" class="form-control" placeholder="Email..." aria-describedby="helpId"
         formControlName="email">
 
       <small
         *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.required"
-        class="text-danger">This field is required.</small>
+        class="text-danger">Email is required.</small>
 
       <small
         *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid && formGroup.get('email').errors.email"
@@ -24,15 +25,6 @@
             && formGroup.get('password').invalid 
             && formGroup.get('password').errors.required" class="text-danger">Password is required!</small>
     </div>
-
-    <div class="form-group">
-      <label for="password">Confirm Password</label>
-      <input type="password" name="password" id="password" class="form-control" placeholder="Password..."
-        aria-describedby="helpId" formControlName="confirmPassword">
-
-      <small *ngIf="!checkPassword()" class="text-danger">Password does not match!</small>
-    </div>
-
 
     <button type="submit" class="btn btn-info">Login</button>
   </form>

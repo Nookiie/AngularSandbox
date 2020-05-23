@@ -5,7 +5,12 @@
       "title": "Internet Technologies",
       "description": "This is the dessdacription",
       "dateOfPublish": "2019-03-13",
-      "ratings": []
+      "ratings": [
+        {
+          "username": "1",
+          "rating": 6
+        }
+      ]
     },
     {
       "id": 2,
@@ -24,6 +29,10 @@
         {
           "username": "James Goodwill",
           "rating": 6
+        },
+        {
+          "username": "1",
+          "rating": 4
         }
       ]
     },
@@ -64,6 +73,10 @@
         {
           "username": "1",
           "rating": 10
+        },
+        {
+          "username": "1",
+          "rating": 10
         }
       ]
     },
@@ -76,6 +89,10 @@
         {
           "username": "1",
           "rating": 9
+        },
+        {
+          "username": "1",
+          "rating": 10
         }
       ]
     },
@@ -103,7 +120,7 @@
       "lname": "Peterbough",
       "email": "maman@gmail.com",
       "isBlocked": false,
-      "isAdmin": true,
+      "isAdmin": false,
       "favouriteCourses": []
     },
     {
@@ -112,15 +129,18 @@
       "password": "maman68ada",
       "fname": "Viktor",
       "lname": "Gill",
-      "email": "something@so"
+      "email": "something@so",
+      "isBlocked": true,
+      "isAdmin": true,
+      "favouriteCourses": []
     },
     {
       "id": 3,
       "username": "asdada",
-      "password": "sdadsasda",
+      "password": "ftwq",
       "fname": "saddas",
       "lname": "dsadasd",
-      "email": "adasdas2@asd",
+      "email": "ftwq@ftwq",
       "isBlocked": false,
       "isAdmin": true,
       "favouriteCourses": []

@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/assets/services/users.service';
 import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-register-form',
@@ -15,6 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 export class RegisterFormComponent implements OnInit {
   
   formGroup: FormGroup;
+  registerErrorMessage: string;
   user: User;
 
   destroy$ = new Subject<boolean>();
@@ -22,7 +24,8 @@ export class RegisterFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService) {
+    private userService: UserService,
+    private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -47,31 +50,62 @@ export class RegisterFormComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+  
+  checkPassword(): boolean {
+    if (this.formGroup.value.password === this.formGroup.value.confirmPassword) {
+      return true;
+    }
+    return false;
+  }
+
+
+  isEmailDuplicate(): boolean{
+    let users: User[];
+
+    this.userService.getUsers()
+    .subscribe(response => {
+      users = response; 
+    });
+
+    if(users.find(x => x.email === this.formGroup.value.email)){
+      return true;
+    }
+
+    return false;
+  }
 
   onSubmit(): void {
     const user = this.formGroup.value;
 
     console.log(user);
 
-    this.userService.saveUser(user).pipe(
+    if(this.isEmailDuplicate()){
+      this.registerErrorMessage = "There is already a user with the same email!";
+      return;
+    }
+    else{
+      this.registerErrorMessage = null;
+    }
+
+    this.authService.register(this.formGroup.value).pipe(
       takeUntil(this.destroy$)
-    ).subscribe(() =>
-      this.router.navigate(['/user-list']));
+    ).subscribe(response => {
+      this.router.navigate(['login']);
+    });
   }
 
   private buildForm(): void {
-    if (!this.user) {
-      this.user = {
-        username: '',
-        password: '',
-        fname: '',
-        lname: '',
-        email: '',
-        isBlocked:false,
-        isAdmin:false,
-        favouriteCourses:[]
-      }
+    this.user ={
+      username: '',
+      password: '',
+      fname: '',
+      lname:'',
+      email: '',
+      isAdmin: false,
+      isBlocked: false,
+      favouriteCourses:[]
     }
+    
     this.formGroup = this.fb.group({
       id: [this.user.id],
       username: [this.user.username, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],

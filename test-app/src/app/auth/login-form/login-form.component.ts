@@ -3,8 +3,10 @@ import { User } from 'src/assets/model/user';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from 'src/assets/services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { stringify } from 'querystring';
-import { IndexComponent } from 'src/app/index/index.component';
+import { AuthenticationService } from '../services/authentication.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-login-form',
@@ -14,64 +16,70 @@ import { IndexComponent } from 'src/app/index/index.component';
 export class LoginFormComponent implements OnInit {
 
   formGroup: FormGroup;
+  loginErrorMessage: string;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthenticationService) {
     this.formGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      confirmPassword: [''],
     });
   }
 
   showError: boolean;
 
+  destroy$ = new Subject<boolean>();
+
   users: User[];
   user: User;
 
   onSubmit(): void {
+    this.loginErrorMessage = null;
+
     if (this.formGroup.valid) {
-      this.login(this.formGroup.value.username, this.formGroup.value.password)
+      this.login(this.formGroup.value.email, this.formGroup.value.password)
     }
-  }
-
-  checkPassword(): boolean {
-    if (this.formGroup.get('password') === this.formGroup.get('confirmPassword')) {
-      return true;
-    }
-
-    return false;
   }
 
   authenticate(email: string, password: string): User {
-    if (!this.checkPassword()) {
-      return;
-    }
+    this.authService.login(email, password).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(response => {
+      if (!response) {
+        this.loginErrorMessage = 'Invalid email or password.';
 
-    let user = this.users.find(x => x.email === email
-      && x.password === password)
+        return null;
+      }
 
-    return user;
+      if (response.isBlocked) {
+        this.loginErrorMessage = "This account is disabled";
+
+        return null;
+      }
+
+      this.user = response;
+    });
+    return this.user;
   }
 
-  private setUser(user: User): void {
-    localStorage.setItem("currentUser", JSON.stringify(user));
-  }
-
-  login(username: string, password: string): void {
-    let user = this.authenticate(username, password)
+  login(email: string, password: string): void {
+    let user = this.authenticate(email, password)
     if (user) {
-      this.setUser(user);
+      this.authService.setLoggedUser(user);
 
-      console.log("Welcome " + user.username);
-
-      this.router.navigate(["/index"]);
+      this.router.navigate(['index']);
     }
   }
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   private getUsers(searchValue?: string): void {

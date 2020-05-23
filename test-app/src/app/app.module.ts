@@ -19,55 +19,70 @@ import { UserListItemComponent } from './user/user-list-item/user-list-item.comp
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { IndexComponent } from './index/index.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
+import { AuthGuard } from './auth/guards/authguard';
+import { NonAuthenticatedGuard } from './auth/guards/non-authguard';
+import { AdminAuthGuard } from './auth/guards/admin.authguard';
 
 const routes: Route[] = [
   {
     path: 'course-add',
-    component: CourseFormComponent
+    component: CourseFormComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'account-edit/:id',
-    component: AccountEditComponent
+    component: AccountEditComponent,
+    canActivate:[AdminAuthGuard]
   },
   {
     path: 'course-add/:id',
-    component: CourseFormComponent
+    component: CourseFormComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'user-add',
-    component: UserFormComponent
+    component: UserFormComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'user-add/:id',
-    component: UserFormComponent
+    component: UserFormComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: "course-list",
-    component: CourseListComponent
+    component: CourseListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "user-list",
-    component: UserListComponent
+    component: UserListComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'account-info',
-    component: AccountInfoComponent
+    component: AccountInfoComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'account-info/:id',
-    component: AccountInfoComponent
+    component: AccountInfoComponent,
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'register-form',
-    component: RegisterFormComponent
+    component: RegisterFormComponent,
+    canActivate: [NonAuthenticatedGuard]
   },
   {
     path: 'login-form',
-    component: LoginFormComponent
+    component: LoginFormComponent,
+    canActivate: [NonAuthenticatedGuard]
   },
   {
     path: 'index',
-    component: IndexComponent
+    component: IndexComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

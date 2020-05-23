@@ -7,7 +7,7 @@
       <p class="card-text" style="font-size: large;">Average Rating: {{ getAverageRating() }}</p>
   
       <button class="btn btn-primary" (click)="onSelectClick()">Rate</button>
-      <a class="btn btn-info ml-2" [routerLink]="['/course-add', course.id]">Update</a>
-      <button class="btn btn-danger ml-2" (click)="onDeleteClick()">Delete</button>
+      <a *ngIf="isCurrentUserAdmin" class="btn btn-info ml-2" [routerLink]="['/course-add', course.id]">Update</a>
+      <button *ngIf="isCurrentUserAdmin" class="btn btn-danger ml-2" (click)="onDeleteClick()">Delete</button>
     </div>
 </div>
