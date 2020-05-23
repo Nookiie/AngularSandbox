@@ -37,10 +37,6 @@
         {
           "username": "1",
           "rating": 8
-        },
-        {
-          "username": "asdada",
-          "rating": 7
         }
       ]
     },
@@ -68,7 +64,11 @@
         },
         {
           "username": "asdada",
-          "rating": 6
+          "rating": 3
+        },
+        {
+          "username": "asdadaasaftwq",
+          "rating": 10
         }
       ]
     },
@@ -113,10 +113,6 @@
         {
           "username": "1",
           "rating": 10
-        },
-        {
-          "username": "asdada",
-          "rating": 6
         }
       ]
     },
@@ -171,18 +167,18 @@
       "lname": "Gill",
       "email": "something@so",
       "isBlocked": true,
-      "isAdmin": true,
+      "isAdmin": false,
       "favouriteCourses": []
     },
     {
       "id": 3,
-      "username": "asdada",
-      "password": "ftwq",
+      "username": "asdadaasaftwq",
+      "password": "adminadmin",
       "fname": "saddas",
       "lname": "dsadasd",
       "email": "ftwq@ftwq",
-      "isBlocked": false,
       "isAdmin": true,
+      "isBlocked": false,
       "favouriteCourses": [
         {
           "id": 1,
@@ -217,14 +213,6 @@
             {
               "username": "1",
               "rating": 1
-            },
-            {
-              "username": "1",
-              "rating": 8
-            },
-            {
-              "username": "asdada",
-              "rating": 7
             }
           ]
         },
@@ -252,7 +240,7 @@
             },
             {
               "username": "asdada",
-              "rating": 6
+              "rating": 3
             }
           ]
         },
@@ -297,10 +285,6 @@
             {
               "username": "1",
               "rating": 10
-            },
-            {
-              "username": "asdada",
-              "rating": 6
             }
           ]
         }

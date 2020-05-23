@@ -23,8 +23,6 @@ export class UserListComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  courseUtils: CourseUtils = new CourseUtils();
-
   showErrorCanNotVoteTwice: boolean;
   currentCourseEntity: number;
   defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -73,13 +71,6 @@ export class UserListComponent implements OnInit {
     this.getUsers();
   }
 
-  onDelete(id: number): void {
-    this.userService.deleteUser(id).pipe(
-    ).subscribe(() => {
-      this.getUsers()
-    });
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
@@ -94,26 +85,27 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  private getUser(id: number): void {
-    this.userService.getUserById(id).pipe()
-      .subscribe(response => {
-        this.user = response;
-      }, error => {
-        console.log(error);
-      })
-  }
-
   onDeleteClick(id: number): void {
+    this.user = this.users[id];
+
+    if(this.user.isAdmin){
+      console.log("Can not delete an admin user!");
+      return;
+    }
+
     this.userService.deleteUser(id).pipe()
       .subscribe(() => this.getUsers());
   }
 
   onBlockClick(id: number): void {
-    this.getUsers()
     this.user = this.users[id];
-    this.user.isBlocked = !this.user.isBlocked;
-    console.log(this.user);
 
+    if(this.user.isAdmin){
+      console.log("Can not block an admin user!");
+      return;
+    }
+
+    this.user.isBlocked = !this.user.isBlocked;
     this.userService.saveUser(this.user).subscribe();
   }
 }

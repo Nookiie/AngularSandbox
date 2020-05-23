@@ -139,7 +139,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
     else {
       this.selectedCourse.ratings = this.selectedCourse.ratings.filter(x => x.username !== user.username);
 
-      debugger;
       this.selectedCourse.ratings.push({
         username: user.username,
         rating: this.selectedRating

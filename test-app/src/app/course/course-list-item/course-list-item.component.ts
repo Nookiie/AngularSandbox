@@ -36,7 +36,6 @@ export class CourseListItemComponent implements OnInit, OnChanges {
   isCourseFavourite(course: Course): boolean {
     let user: User;
     user = JSON.parse(localStorage.getItem("currentUser"));    
-    console.log(user.favouriteCourses);
 
     if (user.favouriteCourses.find(x => x.title === course.title) != null) {
       return true;
