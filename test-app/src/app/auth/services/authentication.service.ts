@@ -12,6 +12,7 @@ export class AuthenticationService {
   readonly currentUser = 'currentUser';
 
   private hasLoggedIn$ = new BehaviorSubject<boolean>(false);
+  private isAdmin$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
   }
@@ -39,6 +40,13 @@ export class AuthenticationService {
     localStorage.setItem(this.currentUser, JSON.stringify(user));
 
     this.setHasLoggedIn(true);
+
+    if(user.isAdmin){
+      this.setIsAdmin(true);
+    }
+    else{
+      this.setIsAdmin(false);
+    }
   }
 
   getLoggedUser(): User {
@@ -49,7 +57,15 @@ export class AuthenticationService {
     this.hasLoggedIn$.next(isLogged);
   }
 
+  setIsAdmin(isAdmin: boolean): void {
+    this.isAdmin$.next(isAdmin);
+  }
+
   getHasLoggedIn(): Observable<boolean> {
     return this.hasLoggedIn$.asObservable();
+  }
+
+  getIsAdmin(): Observable<boolean> {
+    return this.isAdmin$.asObservable();
   }
 }

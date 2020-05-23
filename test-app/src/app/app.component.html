@@ -17,7 +17,7 @@
       <li *ngIf="isCurrentUserAdmin" class="nav-item">
         <a class="nav-link" href="#" routerLink="user-list">Users</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="hasLoggedIn" class="nav-item">
         <a class="nav-link" href="#" routerLink="course-list">Courses</a>
       </li>
     </ul>

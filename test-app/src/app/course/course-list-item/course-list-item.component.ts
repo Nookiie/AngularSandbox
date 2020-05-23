@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { Course } from 'src/assets/model/course';
 import { CoursesService } from 'src/assets/services/courses.service';
 import { CourseRating } from 'src/assets/model/courseRating';
+import { User } from 'src/assets/model/user';
 
 @Component({
   selector: 'app-course-list-item',
@@ -13,6 +14,8 @@ export class CourseListItemComponent implements OnInit, OnChanges {
   @Input() course: Course;
 
   @Output() courseSelected = new EventEmitter<Course>();
+  @Output() courseFavourited = new EventEmitter<Course>();
+  @Output() courseUnfavourited = new EventEmitter<Course>();
   @Output() courseRated = new EventEmitter<Course>();
   @Output() courseDeleted = new EventEmitter<number>();
 
@@ -20,9 +23,9 @@ export class CourseListItemComponent implements OnInit, OnChanges {
 
   constructor() {
 
-   }
+  }
 
-   getDescription(): string {
+  getDescription(): string {
     if (this.course.description.length > 100) {
       return `${this.course.description.substr(0, 100)}...`;
     }
@@ -30,22 +33,43 @@ export class CourseListItemComponent implements OnInit, OnChanges {
     return this.course.description
   }
   
-  getAverageRating (): string{
+  isCourseFavourite(course: Course): boolean {
+    let user: User;
+    user = JSON.parse(localStorage.getItem("currentUser"));    
+    console.log(user.favouriteCourses);
+
+    if (user.favouriteCourses.find(x => x.title === course.title) != null) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  getAverageRating(): string {
     let sum = 0;
 
     this.course.ratings.forEach(x => {
-       sum += x.rating;
+      sum += x.rating;
     });
 
-    if(sum === 0){
+    if (sum === 0) {
       return "No Ratings"
     }
-   
+
     return (sum / this.course.ratings.length).toPrecision(2);
-}
+  }
 
   onSelectClick(): void {
     this.courseSelected.emit(this.course);
+  }
+
+  onFavouriteClick(): void {
+    this.courseFavourited.emit(this.course);
+  }
+
+  onUnfavouriteClick(): void{
+    this.courseUnfavourited.emit(this.course);
   }
 
   onDeleteClick(): void {
@@ -55,10 +79,9 @@ export class CourseListItemComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem("currentUser"));
     this.isCurrentUserAdmin = user.isAdmin;
-
   }
 
-  ngOnChanges(): void{
-    
+  ngOnChanges(): void {
+
   }
 }

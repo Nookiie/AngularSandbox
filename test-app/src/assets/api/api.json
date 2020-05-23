@@ -9,6 +9,38 @@
         {
           "username": "1",
           "rating": 6
+        },
+        {
+          "username": "1",
+          "rating": 6
+        },
+        {
+          "username": "1",
+          "rating": 6
+        },
+        {
+          "username": "1",
+          "rating": 5
+        },
+        {
+          "username": "1",
+          "rating": 8
+        },
+        {
+          "username": "1",
+          "rating": 10
+        },
+        {
+          "username": "1",
+          "rating": 1
+        },
+        {
+          "username": "1",
+          "rating": 8
+        },
+        {
+          "username": "asdada",
+          "rating": 7
         }
       ]
     },
@@ -33,6 +65,10 @@
         {
           "username": "1",
           "rating": 4
+        },
+        {
+          "username": "asdada",
+          "rating": 6
         }
       ]
     },
@@ -77,6 +113,10 @@
         {
           "username": "1",
           "rating": 10
+        },
+        {
+          "username": "asdada",
+          "rating": 6
         }
       ]
     },
@@ -143,7 +183,128 @@
       "email": "ftwq@ftwq",
       "isBlocked": false,
       "isAdmin": true,
-      "favouriteCourses": []
+      "favouriteCourses": [
+        {
+          "id": 1,
+          "title": "Internet Technologies",
+          "description": "This is the dessdacription",
+          "dateOfPublish": "2019-03-13",
+          "ratings": [
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 5
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "1",
+              "rating": 1
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "asdada",
+              "rating": 7
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Big Data",
+          "description": "Big Data Stuff",
+          "dateOfPublishing": "2020-04-14",
+          "ratings": [
+            {
+              "username": "Peter Thoroughbrow",
+              "rating": 6
+            },
+            {
+              "username": "George Davidson",
+              "rating": 4
+            },
+            {
+              "username": "James Goodwill",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 4
+            },
+            {
+              "username": "asdada",
+              "rating": 6
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Angular Learning",
+          "description": "Big Data Stuff",
+          "dateOfPublishing": "2020-03-15",
+          "ratings": [
+            {
+              "username": "Peter Thoroughbrow",
+              "rating": 2
+            },
+            {
+              "username": "George Davidson",
+              "rating": 6
+            },
+            {
+              "username": "Jimmy McGill",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 7
+            },
+            {
+              "username": "1",
+              "rating": 4
+            },
+            {
+              "username": "1",
+              "rating": 3
+            },
+            {
+              "username": "1",
+              "rating": 5
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "asdada",
+              "rating": 6
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -12,7 +12,7 @@ import { User } from 'src/assets/model/user';
 })
 
 export class AppComponent {
-  title = 'cinema-app';
+  title = 'course-app';
   currentUser: User;
   hasLoggedIn: boolean;
   isCurrentUserAdmin: boolean;
@@ -21,6 +21,27 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService,
     private router: Router) {
+      this.authService.getHasLoggedIn().pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(response => this.hasLoggedIn = response);
+
+      this.authService.getIsAdmin().pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(response => this.isCurrentUserAdmin = response);
+  
+      this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (this.currentUser) {
+        this.hasLoggedIn = true;
+        if (this.currentUser.isAdmin) {
+          this.isCurrentUserAdmin = true;
+        }
+        else {
+          this.isCurrentUserAdmin = false;
+        }
+      }
+      else {
+        this.hasLoggedIn = false;
+      }
   }
 
   ngOnInit(): void {
@@ -29,6 +50,7 @@ export class AppComponent {
     ).subscribe(response => this.hasLoggedIn = response);
 
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(this.currentUser);
     if (this.currentUser) {
       this.hasLoggedIn = true;
       if (this.currentUser.isAdmin) {
@@ -41,8 +63,6 @@ export class AppComponent {
     else {
       this.hasLoggedIn = false;
     }
-
-
   }
 
   ngOnDestroy(): void {

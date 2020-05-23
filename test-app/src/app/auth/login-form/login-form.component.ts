@@ -68,6 +68,8 @@ export class LoginFormComponent implements OnInit {
     let user = this.authenticate(email, password)
     if (user) {
       this.authService.setLoggedUser(user);
+      console.log(user);
+      
 
       this.router.navigate(['index']);
     }

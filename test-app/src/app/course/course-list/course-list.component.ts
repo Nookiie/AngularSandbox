@@ -7,6 +7,7 @@ import { CoursesService } from 'src/assets/services/courses.service';
 import { Subject, timer } from 'rxjs';
 import { stringify } from 'querystring';
 import { AppComponent } from 'src/app/app.component';
+import { UserService } from 'src/assets/services/users.service';
 
 @Component({
   selector: 'app-course-list',
@@ -14,7 +15,6 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit, OnDestroy {
-
   selectedCourse: Course;
 
   destroy$ = new Subject<boolean>();
@@ -35,7 +35,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
   debugRateMessage: string;
 
   constructor(private fb: FormBuilder,
-    private courseService: CoursesService) {
+    private courseService: CoursesService,
+    private userService: UserService) {
     this.formGroup = this.fb.group({
       rating: [0, [Validators.required, Validators.max(10), Validators.min(0)]],
     });
@@ -48,7 +49,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
     });
     let user = JSON.parse(localStorage.getItem("currentUser"));
     this.isCurrentUserAdmin = user.isAdmin;
-    console.log(user);
 
     this.getCourses();
   }
@@ -57,7 +57,45 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.selectedCourse = course;
   }
 
-  onCourseRated(course: Course): void{
+  onCourseFavourited(course: Course): void {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (course != null) {
+      user.favouriteCourses.push(course);
+    }
+
+    this.userService.saveUser(user).subscribe(() => {
+      this.getUsers();
+    });
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
+
+  onCourseUnfavourited(course: Course): void {
+    let user: User = JSON.parse(localStorage.getItem("currentUser"));
+    let newCourses: Course[] = user.favouriteCourses.filter(x => x.title !== course.title);
+
+    user.favouriteCourses = newCourses;
+    this.userService.saveUser(user).subscribe(() => {
+      this.getUsers();
+    })
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
+
+  isCourseFavourite(course: Course): boolean {
+    let user: User;
+    user = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (user.favouriteCourses.find(x => x.title === course.title) != null) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  onCourseRated(course: Course): void {
     this.selectedCourse = course;
   }
 
@@ -82,39 +120,35 @@ export class CourseListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onRateClick(): void{
+  onRateClick(): void {
     this.getCourse();
-   
-    //TODO: change '' with applicable username
-    let course = this.selectedCourse.ratings.find(x => x.username == '1');
-    if (!course) {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
 
+    let course = this.selectedCourse.ratings.find(x => x.username == user.username);
+    if (!course) {
       this.selectedCourse.ratings.push({
-        username: '1',
+        username: user.username,
         rating: this.selectedRating
       });
-
-      console.log(this.selectedCourse);
-      this.courseService.saveCourse(this.selectedCourse).pipe().subscribe();
-      
-      console.log(this.courses);
-  
+      this.courseService.saveCourse(this.selectedCourse).subscribe();
       this.debugRateMessage = "Successfully rated "
         + this.selectedCourse.title
         + " with a rating of " + this.selectedRating;
 
     }
-    else{
+    else {
+      this.selectedCourse.ratings = this.selectedCourse.ratings.filter(x => x.username !== user.username);
 
+      debugger;
       this.selectedCourse.ratings.push({
-        username: '1',
+        username: user.username,
         rating: this.selectedRating
       });
-      this.courseService.saveCourse(this.selectedCourse).pipe().subscribe();
-  
+
+      this.courseService.saveCourse(this.selectedCourse).subscribe();
       this.debugRateMessage = "Successfully updated "
-      + this.selectedCourse.title
-      + " with a rating of " + this.selectedRating;
+        + this.selectedCourse.title
+        + " with a rating of " + this.selectedRating;
     }
   }
 
@@ -131,6 +165,15 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.courseService.getCourses(searchValue).pipe()
       .subscribe(response => {
         this.courses = response;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  private getUsers(searchValue?: string): void {
+    this.userService.getUsers(searchValue).pipe()
+      .subscribe(response => {
+        this.users = response;
       }, error => {
         console.log(error);
       });

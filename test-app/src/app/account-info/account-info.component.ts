@@ -36,7 +36,7 @@ export class AccountInfoComponent implements OnInit {
   courses: Course[];
 
   constructor(private fb: FormBuilder,
-    private userService: UserService, 
+    private userService: UserService,
     private courseService: CoursesService) {
     this.formGroup = this.fb.group({
 
@@ -50,10 +50,11 @@ export class AccountInfoComponent implements OnInit {
       fname: '',
       lname: '',
       email: '',
-      favouriteCourses:[]
+      favouriteCourses: []
     }
 
     this.user = JSON.parse(localStorage.getItem("currentUser"));
+    this.getCourses()
   }
 
   onUserSelected(username: string): void {
@@ -115,26 +116,26 @@ export class AccountInfoComponent implements OnInit {
   }
 
   getPersonalRating(course: Course): string {
-    let rating;
-    try {
-      rating = course.ratings.find(x =>
-        x.username === this.user.username).rating
+    let rating: string;
+
+    console.log(course.ratings.find(x => x.username === this.user.username));
+    try{
+      rating = course.ratings.find(x => x.username == this.user.username) 
+      ? course.ratings.find(x => x.username === this.user.username).rating.toString() 
+      : "No Rating Given";
     }
     catch{
       return "No Rating Given";
     }
-
-    if (rating === null) {
-      return "No Rating Given";
-    }
-
-    return rating.toString();
+    
+    return rating;
   }
 
   unfavourite(course: Course) {
-    let courseIndex = this.user.favouriteCourses.indexOf(course);
-
-    delete this.user.favouriteCourses[courseIndex];
+    this.user.favouriteCourses = this.user.favouriteCourses.filter(x => x !== course);
+  
+    localStorage.setItem("currentUser", JSON.stringify(this.user));
+    this.userService.saveUser(this.user).subscribe();
   }
   onSubmit(): void {
 
