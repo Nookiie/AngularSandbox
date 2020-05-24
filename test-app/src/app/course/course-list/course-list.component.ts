@@ -18,7 +18,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   selectedCourse: Course;
 
   destroy$ = new Subject<boolean>();
-  selectedRating: number;
+  selectedRating: number = 0;
   isCurrentUserAdmin: boolean;
 
   formGroup: FormGroup;

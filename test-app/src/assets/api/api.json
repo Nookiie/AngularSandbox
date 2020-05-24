@@ -41,6 +41,10 @@
         {
           "username": "sadasd",
           "rating": 5
+        },
+        {
+          "username": "asdadaasaftwq",
+          "rating": 2
         }
       ]
     },
@@ -71,12 +75,12 @@
           "rating": 3
         },
         {
-          "username": "asdadaasaftwq",
-          "rating": 10
-        },
-        {
           "username": "sadasd",
           "rating": 1
+        },
+        {
+          "username": "asdadaasaftwq",
+          "rating": 10
         }
       ]
     },
@@ -180,7 +184,7 @@
     },
     {
       "id": 3,
-      "username": "asdadaasaftwq",
+      "username": "asdadaasaftwqadasda",
       "password": "adminadmin",
       "fname": "saddas",
       "lname": "dsadasd",

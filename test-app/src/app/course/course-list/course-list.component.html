@@ -19,11 +19,11 @@
 
 <div *ngIf="selectedCourse" class="row">
   <div class="col-md-12">
-    <h5 *ngIf="selectedCourse">You mark {{ selectedCourse.title }} as your favourite course.</h5>
+    <h5 *ngIf="selectedCourse">You are now rating {{ selectedCourse.title }}.</h5>
   </div>
 </div>
 
-<div *ngIf = "selectedCourse" class="row">
+<div *ngIf = "selectedCourse" class="row col-sm-2">
   <div class="col-md-12">
     <select class = "form-control" [(ngModel)]="selectedRating">
       <option *ngFor="let rating of defaultRatings" [ngValue]="rating">{{rating}}</option>

@@ -19,16 +19,19 @@ import { CourseUtils } from 'src/assets/utils/courseUtils';
 export class AccountEditComponent implements OnInit {
   formGroup: FormGroup;
   user: User;
+  courses: Course[];
 
   destroy$ = new Subject<boolean>();
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private userService: UserService) {
+    private userService: UserService,
+    private courseService: CoursesService) {
   }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("currentUser"));
+
     this.buildForm();
   }
 

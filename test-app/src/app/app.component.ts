@@ -50,7 +50,6 @@ export class AppComponent {
     ).subscribe(response => this.hasLoggedIn = response);
 
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(this.currentUser);
     if (this.currentUser) {
       this.hasLoggedIn = true;
       if (this.currentUser.isAdmin) {

@@ -16,7 +16,7 @@ import { CourseUtils } from 'src/assets/utils/courseUtils';
   styleUrls: ['./account-info.component.scss']
 })
 
-export class AccountInfoComponent implements OnInit {
+export class AccountInfoComponent implements OnInit, OnDestroy {
   @Input() user: User;
 
   @Output() userSelected = new EventEmitter<string>();
@@ -27,7 +27,6 @@ export class AccountInfoComponent implements OnInit {
   destroy$ = new Subject<boolean>();
 
   formGroup: FormGroup;
-  courseUtils: CourseUtils = new CourseUtils();
   showErrorCanNotVoteTwice: boolean;
   currentCourseEntity: number;
   defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -44,91 +43,52 @@ export class AccountInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = {
-      username: '',
-      password: '',
-      fname: '',
-      lname: '',
-      email: '',
-      favouriteCourses: []
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
+
+    this.getCourses()
+    let userCourses = this.courses.find(x =>
+      x.ratings.find(x => x.username === this.user.username))
+
+    this.user.favouriteCourses.push(userCourses);
+    this.userService.saveUser(this.user)
+
+    localStorage.setItem("currentUser", JSON.stringify(this.user));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  getPersonalRating(course: Course): string {
+    let rating: string;
+
+    try {
+      rating = course.ratings.find(x => x.username == this.user.username)
+        ? course.ratings.find(x => x.username === this.user.username).rating.toString()
+        : "No Rating Given";
+    }
+    catch{
+      return "No Rating Given";
     }
 
-    this.user = JSON.parse(localStorage.getItem("currentUser"));
-    this.getCourses()
+    return rating;
   }
 
-  onUserSelected(username: string): void {
-    this.selectedUserUsername = username;
-  }
+  unfavourite(course: Course) {
+    this.user.favouriteCourses = this.user.favouriteCourses.filter(x => x !== course);
 
-  onSearch(): void {
-    const searchValue = this.formGroup.controls.search.value;
-
-    this.getUsers(searchValue);
-  }
-
-  onClearSearch(): void {
-    this.formGroup.get('search').setValue(null);
-
-    this.getUsers();
-  }
-
-  onDelete(id: number): void {
-    this.userService.deleteUser(id).pipe(
-    ).subscribe(() => {
-      this.getUsers();
-    });
-  }
-
-  private getUsers(searchValue?: string): void {
-    this.userService.getUsers(searchValue).pipe()
-      .subscribe(response => {
-        this.users = response;
-      });
+    localStorage.setItem("currentUser", JSON.stringify(this.user));
+    this.userService.saveUser(this.user).subscribe();
   }
 
   private getCourses(searchValue?: string): void {
     this.courseService.getCourses(searchValue).pipe()
       .subscribe(response => {
         this.courses = response;
+      }, error => {
+        console.log(error);
       });
   }
 
-  onDeleteClick(id: number): void {
-    this.userService.deleteUser(id).pipe()
-      .subscribe(() => this.getUsers());
-  }
-
-  onBlockClick(id: number): void {
-    let user = this.users[id];
-    this.userService.blockUser(user);
-
-    console.log(user);
-  }
-
-  getPersonalRating(course: Course): string {
-    let rating: string;
-
-    console.log(course.ratings.find(x => x.username === this.user.username));
-    try{
-      rating = course.ratings.find(x => x.username == this.user.username) 
-      ? course.ratings.find(x => x.username === this.user.username).rating.toString()
-      : "No Rating Given";
-    }
-    catch{
-      return "No Rating Given";
-    }
-    
-    return rating;
-  }
-
-  unfavourite(course: Course) {
-    this.user.favouriteCourses = this.user.favouriteCourses.filter(x => x !== course);
-  
-    localStorage.setItem("currentUser", JSON.stringify(this.user));
-    this.userService.saveUser(this.user).subscribe();
-  }
-  onSubmit(): void {
-
-  }
 }

@@ -22,6 +22,7 @@ export class CoursesService {
             });
         }
 
+        console.log(this.http.get<Course[]>(this.url));
         return this.http.get<Course[]>(this.url);
     }
 
