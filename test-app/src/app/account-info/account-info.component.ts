@@ -87,15 +87,6 @@ export class AccountInfoComponent implements OnInit {
       });
   }
 
-  private getUser(id: number): void {
-    this.userService.getUserById(id).pipe()
-      .subscribe(response => {
-        this.user = response;
-      }, error => {
-        console.log(error);
-      })
-  }
-
   private getCourses(searchValue?: string): void {
     this.courseService.getCourses(searchValue).pipe()
       .subscribe(response => {
@@ -121,7 +112,7 @@ export class AccountInfoComponent implements OnInit {
     console.log(course.ratings.find(x => x.username === this.user.username));
     try{
       rating = course.ratings.find(x => x.username == this.user.username) 
-      ? course.ratings.find(x => x.username === this.user.username).rating.toString() 
+      ? course.ratings.find(x => x.username === this.user.username).rating.toString()
       : "No Rating Given";
     }
     catch{

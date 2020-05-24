@@ -18,6 +18,7 @@ export class RegisterFormComponent implements OnInit {
   formGroup: FormGroup;
   registerErrorMessage: string;
   user: User;
+  users: User[];
 
   destroy$ = new Subject<boolean>();
 
@@ -44,6 +45,7 @@ export class RegisterFormComponent implements OnInit {
     });
 
     this.buildForm();
+    this.getUsers();
   }
 
   ngOnDestroy(): void {
@@ -60,14 +62,9 @@ export class RegisterFormComponent implements OnInit {
 
 
   isEmailDuplicate(): boolean{
-    let users: User[];
+    console.log(this.users);
 
-    this.userService.getUsers()
-    .subscribe(response => {
-      users = response; 
-    });
-
-    if(users.find(x => x.email === this.formGroup.value.email)){
+    if(this.users.find(x => x.email === this.formGroup.value.email)){
       return true;
     }
 
@@ -76,9 +73,6 @@ export class RegisterFormComponent implements OnInit {
 
   onSubmit(): void {
     const user = this.formGroup.value;
-
-    console.log(user);
-
     if(this.isEmailDuplicate()){
       this.registerErrorMessage = "There is already a user with the same email!";
       return;
@@ -90,8 +84,9 @@ export class RegisterFormComponent implements OnInit {
     this.authService.register(this.formGroup.value).pipe(
       takeUntil(this.destroy$)
     ).subscribe(response => {
-      this.router.navigate(['login']);
+      this.router.navigate(['login-form']);
     });
+
   }
 
   private buildForm(): void {
@@ -112,7 +107,19 @@ export class RegisterFormComponent implements OnInit {
       password: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
       fname: [this.user.fname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      email: [this.user.email, [Validators.required, Validators.email]]
+      email: [this.user.email, [Validators.required, Validators.email]],
+      isAdmin: [this.user.isAdmin],
+      isBlocked: [this.user.isBlocked],
+      favouriteCourses:[this.user.favouriteCourses]
     });
+  }
+
+  private getUsers(searchValue?: string): void {
+    this.userService.getUsers(searchValue).pipe()
+      .subscribe(response => {
+        this.users = response;
+      }, error => {
+        console.log(error);
+      });
   }
 }

@@ -37,6 +37,10 @@
         {
           "username": "1",
           "rating": 8
+        },
+        {
+          "username": "sadasd",
+          "rating": 5
         }
       ]
     },
@@ -69,6 +73,10 @@
         {
           "username": "asdadaasaftwq",
           "rating": 10
+        },
+        {
+          "username": "sadasd",
+          "rating": 1
         }
       ]
     },
@@ -285,6 +293,58 @@
             {
               "username": "1",
               "rating": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "username": "sadasd",
+      "password": "asdasdsa",
+      "fname": "dsadasda",
+      "lname": "dsadsad",
+      "email": "asd@asdasd",
+      "isAdmin": false,
+      "isBlocked": false,
+      "favouriteCourses": [
+        {
+          "id": 1,
+          "title": "Internet Technologies",
+          "description": "This is the dessdacription",
+          "dateOfPublish": "2019-03-13",
+          "ratings": [
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 5
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "1",
+              "rating": 1
+            },
+            {
+              "username": "1",
+              "rating": 8
             }
           ]
         }

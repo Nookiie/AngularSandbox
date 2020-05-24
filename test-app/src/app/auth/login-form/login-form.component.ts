@@ -70,7 +70,6 @@ export class LoginFormComponent implements OnInit {
       this.authService.setLoggedUser(user);
       console.log(user);
       
-
       this.router.navigate(['index']);
     }
   }
