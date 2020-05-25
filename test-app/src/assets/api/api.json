@@ -209,7 +209,92 @@
       "email": "asd@asdasd",
       "isAdmin": false,
       "isBlocked": false,
-      "favouriteCourses": []
+      "favouriteCourses": [
+        {
+          "id": 1,
+          "title": "Internet Technologies",
+          "description": "This is the dessdacription",
+          "dateOfPublish": "2019-03-13",
+          "ratings": [
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 5
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "1",
+              "rating": 1
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "sadasd",
+              "rating": 5
+            },
+            {
+              "username": "asdadaasaftwq",
+              "rating": 2
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Big Data",
+          "description": "Big Data Stuff",
+          "dateOfPublish": "2020-04-14",
+          "ratings": [
+            {
+              "username": "Peter Thoroughbrow",
+              "rating": 6
+            },
+            {
+              "username": "George Davidson",
+              "rating": 4
+            },
+            {
+              "username": "James Goodwill",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 4
+            },
+            {
+              "username": "asdada",
+              "rating": 3
+            },
+            {
+              "username": "asdadaasaftwq",
+              "rating": 10
+            },
+            {
+              "username": "sadasd",
+              "rating": 10
+            }
+          ]
+        }
+      ]
     }
   ]
 }

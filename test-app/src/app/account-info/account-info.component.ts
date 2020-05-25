@@ -32,8 +32,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   courses: Course[];
 
   constructor(private fb: FormBuilder,
-    private userService: UserService,
-    private courseService: CoursesService) {
+    private userService: UserService) {
     this.formGroup = this.fb.group({
 
     });
@@ -42,50 +41,17 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("currentUser"));
 
-    this.getCourses()
-    let userCourses = this.courses.find(x =>
-      x.ratings.find(x => x.username === this.user.username))
-
-    this.user.favouriteCourses.push(userCourses);
-    this.userService.saveUser(this.user)
-
-    localStorage.setItem("currentUser", JSON.stringify(this.user));
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
-  getPersonalRating(course: Course): string {
-    let rating: string;
-
-    try {
-      rating = course.ratings.find(x => x.username == this.user.username)
-        ? course.ratings.find(x => x.username === this.user.username).rating.toString()
-        : "No Rating Given";
-    }
-    catch{
-      return "No Rating Given";
-    }
-
-    return rating;
-  }
-
+  
   unfavourite(course: Course) {
     this.user.favouriteCourses = this.user.favouriteCourses.filter(x => x !== course);
 
     localStorage.setItem("currentUser", JSON.stringify(this.user));
     this.userService.saveUser(this.user).subscribe();
   }
-
-  private getCourses(searchValue?: string): void {
-    this.courseService.getCourses(searchValue).pipe()
-      .subscribe(response => {
-        this.courses = response;
-      }, error => {
-        console.log(error);
-      });
-  }
-
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="mb-4 text-primary text-center">Change Account Info</h1>
+    <h1 class="mb-4 text-primary text-center">Your Account Info</h1>
     <div class="container">
       <ul class = "list-group list-group">
         <li class = "list-group-item">Username: {{ user.username }}</li>
@@ -15,15 +15,10 @@
       <h1 class="text-primary text-center">Favourite Courses</h1>
       <table class="table">
         <thead>
-          <tr hidden>
-            <th scope="col">Name</th>
-            <th scope="col">Personal Rating</th>
-          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let course of user.favouriteCourses; let i = index">
             <td *ngIf="course">{{course.title}}</td>
-            <td *ngIf="course" hidden>{{getPersonalRating(course)}}</td>
             <td *ngIf="course"><button (click)="unfavourite(course)" class = "glyphicon glyphicon-remove"> </button></td>
           </tr>
         </tbody>
