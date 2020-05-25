@@ -1,14 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject, Input, Output, EventEmitter } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/assets/model/user';
 import { Course } from 'src/assets/model/course';
 import { UserService } from 'src/assets/services/users.service';
-import { JsonGetService } from 'src/assets/services/json.get.service';
-import { CoursesService } from 'src/assets/services/courses.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { CourseUtils } from 'src/assets/utils/courseUtils';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-account-info',

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/assets/model/user';
-import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/assets/services/users.service';

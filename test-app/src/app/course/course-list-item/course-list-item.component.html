@@ -1,5 +1,5 @@
 
-<div class="card">
+<div class="card" [ngClass]="isCourseFavourite(course) ? 'border-warning' : ''">
     <h2 class = "text-center"> {{ course.title }}</h2>
   
     <div class="card-body">

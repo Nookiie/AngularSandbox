@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Course } from 'src/assets/model/course';
 import { User } from 'src/assets/model/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CourseUtils } from 'src/assets/utils/courseUtils';
 import { CoursesService } from 'src/assets/services/courses.service';
 import { Subject, timer } from 'rxjs';
 import { stringify } from 'querystring';
@@ -22,9 +21,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
   isCurrentUserAdmin: boolean;
 
   formGroup: FormGroup;
-
-  courseUtils: CourseUtils = new CourseUtils();
-
   showErrorCanNotVoteTwice: boolean;
   currentCourseEntity: number;
   defaultRatings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
