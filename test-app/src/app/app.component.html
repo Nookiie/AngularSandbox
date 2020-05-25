@@ -23,16 +23,16 @@
     </ul>
     <ul class = "navbar-nav navbar-right">
       <li *ngIf="hasLoggedIn" class="nav-item">
-        <a class="nav-link" routerLink="account-info"><span class="glyphicon glyphicon-user"></span>My Account</a>
+        <a class="nav-link ml-2" routerLink="account-info"><span class="glyphicon glyphicon-user ml-2"></span>My Account</a>
       </li>
       <li *ngIf="!hasLoggedIn" class="nav-item">
-        <a class="nav-link" routerLink="register-form"><span class="glyphicon glyphicon-user"></span>Register</a>
+        <a class="nav-link ml-2" routerLink="register-form"><span class="glyphicon glyphicon-user ml-2"></span>Register</a>
       </li>
       <li *ngIf="!hasLoggedIn" class="nav-item">
-        <a class="nav-link" routerLink="login-form"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+        <a class="nav-link ml-2" routerLink="login-form"><span class="glyphicon glyphicon-log-in ml-2"></span>Login</a>
       </li>
       <li *ngIf="hasLoggedIn" class="nav-item">
-        <a class="nav-link" href="#" (click)="onLogoutClick()"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+        <a class="nav-link ml-2" href="#" (click)="onLogoutClick()"><span class="glyphicon glyphicon-log-out ml-2"></span>Logout</a>
       </li>
     </ul>
   </div>

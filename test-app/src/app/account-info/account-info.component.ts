@@ -19,9 +19,6 @@ import { CourseUtils } from 'src/assets/utils/courseUtils';
 export class AccountInfoComponent implements OnInit, OnDestroy {
   @Input() user: User;
 
-  @Output() userSelected = new EventEmitter<string>();
-  @Output() userDeleted = new EventEmitter<number>();
-
   selectedUserUsername: string;
 
   destroy$ = new Subject<boolean>();

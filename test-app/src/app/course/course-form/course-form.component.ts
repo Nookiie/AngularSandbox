@@ -49,6 +49,7 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit(): void {
     const course = this.formGroup.value;
+    console.log(course);
 
     console.log(course);
 

@@ -32,10 +32,10 @@ export class CourseListItemComponent implements OnInit, OnChanges {
 
     return this.course.description
   }
-  
+
   isCourseFavourite(course: Course): boolean {
     let user: User;
-    user = JSON.parse(localStorage.getItem("currentUser"));    
+    user = JSON.parse(localStorage.getItem("currentUser"));
 
     if (user.favouriteCourses.find(x => x.title === course.title) != null) {
       return true;
@@ -59,6 +59,23 @@ export class CourseListItemComponent implements OnInit, OnChanges {
     return (sum / this.course.ratings.length).toPrecision(2);
   }
 
+  getUserRating(): string {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+
+    let userCourseRating = this.course.ratings.filter(x => x.username === user.username);
+
+    try {
+      if (userCourseRating) {
+        return userCourseRating[0].rating.toString();
+      }
+    }
+    catch{
+      return "Not Rated Yet";
+    }
+
+    return "Not Rated Yet";
+  }
+
   onSelectClick(): void {
     this.courseSelected.emit(this.course);
   }
@@ -67,7 +84,7 @@ export class CourseListItemComponent implements OnInit, OnChanges {
     this.courseFavourited.emit(this.course);
   }
 
-  onUnfavouriteClick(): void{
+  onUnfavouriteClick(): void {
     this.courseUnfavourited.emit(this.course);
   }
 
