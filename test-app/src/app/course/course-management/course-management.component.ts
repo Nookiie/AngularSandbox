@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/assets/model/course';
 
+//Experimental proof-of-concept Management Interface
+//Not used by application
 @Component({
   selector: 'app-course-management',
   templateUrl: './course-management.component.html',
@@ -21,7 +23,7 @@ export class CourseManagementComponent implements OnInit {
     {
       "title": "Internet Technologies",
       "description": "This is the description",
-      "dateOfPublishing": "2020-04-19",
+      "dateOfPublish": "2020-04-19",
       "ratings": [{
         "username": "Peter Thoroughbrow",
         "rating": 6
@@ -39,7 +41,7 @@ export class CourseManagementComponent implements OnInit {
     {
       "title": "Big Data",
       "description": "Big Data Stuff",
-      "dateOfPublishing": "2020-04-16",
+      "dateOfPublish": "2020-04-16",
       "ratings": [{
         "username": "Peter Thoroughbrow",
         "rating": 6
@@ -57,7 +59,7 @@ export class CourseManagementComponent implements OnInit {
     {
       "title": "Angular Learning",
       "description": "Big Data Stuff",
-      "dateOfPublishing": "2020-03-15",
+      "dateOfPublish": "2020-03-15",
       "ratings": [{
         "username": "Peter Thoroughbrow",
         "rating": 2
@@ -89,7 +91,7 @@ export class CourseManagementComponent implements OnInit {
     this.courses.push({
       title: this.courseTitleInput,
       description: this.courseDescInput,
-      dateOfPublishing: this.courseDateOfPublishInput
+      dateOfPublish: this.courseDateOfPublishInput
     });
 
     this.courseTitleInput = null;
@@ -100,7 +102,7 @@ export class CourseManagementComponent implements OnInit {
   courseOnUpdateClick(index: number): void {
     this.courseTitleInput = this.courses[index].title;
     this.courseDescInput = this.courses[index].description;
-    this.courseDateOfPublishInput = this.courses[index].dateOfPublishing;
+    this.courseDateOfPublishInput = this.courses[index].dateOfPublish;
 
     this.currentUpdateEntity = index;
   }
@@ -110,7 +112,7 @@ export class CourseManagementComponent implements OnInit {
 
     this.courses[index].title = this.courseTitleInput;
     this.courses[index].description = this.courseDescInput;
-    this.courses[index].dateOfPublishing = this.courseDateOfPublishInput;
+    this.courses[index].dateOfPublish = this.courseDateOfPublishInput;
 
     this.currentUpdateEntity = null;
 

@@ -30,9 +30,9 @@ const routes: Route[] = [
     canActivate: [AdminAuthGuard]
   },
   {
-    path: 'account-edit/:id',
+    path: 'account-edit',
     component: AccountEditComponent,
-    canActivate:[AdminAuthGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'course-add/:id',

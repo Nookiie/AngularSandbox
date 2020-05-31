@@ -49,10 +49,6 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit(): void {
     const course = this.formGroup.value;
-    console.log(course);
-
-    console.log(course);
-
     this.moviesService.saveCourse(course).pipe(
       takeUntil(this.destroy$)
     ).subscribe(() =>
@@ -64,7 +60,7 @@ export class CourseFormComponent implements OnInit {
       this.course = {
         title: '',
         description: '',
-        dateOfPublishing: '',
+        dateOfPublish: '',
         ratings:[]
       }
     }
@@ -72,7 +68,7 @@ export class CourseFormComponent implements OnInit {
       id: [this.course.id],
       title: [this.course.title, [Validators.required, Validators.minLength(5)]],
       description: [this.course.description],
-      dateOfPublish: [this.course.dateOfPublishing, [Validators.required]],
+      dateOfPublish: [this.course.dateOfPublish, [Validators.required]],
       ratings:[this.course.ratings]
     });
   }

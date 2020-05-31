@@ -4,8 +4,12 @@
   
     <div class="card-body">
       <p class="card-text">{{ getDescription() }}</p>
+      
+      <hr />
       <p class="card-text" style="font-size: large;">Average Rating: {{ getAverageRating() }}</p>
-      <p class="card=text" style="font-size:large;">Your rating: {{getUserRating()}}</p>
+      <p class="card=text" style="font-size:large;">Your rating: {{ getUserRating() }}</p>
+      <hr />
+      <p class="card-text" style="font-size: small;">Date of Publishing: {{ course.dateOfPublish | date }}</p>
   
       <button class="btn btn-primary" (click)="onSelectClick()">Rate</button>
       <button *ngIf="!isCourseFavourite(course)"class="btn btn-warning ml-2" (click)="onFavouriteClick()">Favourite</button>

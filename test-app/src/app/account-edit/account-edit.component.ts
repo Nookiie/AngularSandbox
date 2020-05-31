@@ -3,8 +3,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'src/assets/model/user';
 import { Course } from 'src/assets/model/course';
 import { UserService } from 'src/assets/services/users.service';
-import { CoursesService } from 'src/assets/services/courses.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -23,8 +22,7 @@ export class AccountEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private userService: UserService,
-    private courseService: CoursesService) {
+    private userService: UserService) {
   }
 
   ngOnInit(): void {

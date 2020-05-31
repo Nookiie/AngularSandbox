@@ -5,6 +5,6 @@ export interface Course extends BaseEntity
 {
     title: string;
     description?: string;
-    dateOfPublishing: string;
+    dateOfPublish: string;
     ratings?: CourseRating[];
 }

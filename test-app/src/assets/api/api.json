@@ -56,7 +56,7 @@
       "id": 2,
       "title": "Big Data",
       "description": "Big Data Stuff",
-      "dateOfPublish": "2020-04-14",
+      "dateOfPublish": "2020-04-17",
       "ratings": [
         {
           "username": "Peter Thoroughbrow",
@@ -85,6 +85,10 @@
         {
           "username": "sadasd",
           "rating": 10
+        },
+        {
+          "username": "maman59",
+          "rating": 10
         }
       ]
     },
@@ -92,7 +96,7 @@
       "id": 3,
       "title": "Angular Learnings",
       "description": "Big Data Stuff something",
-      "dateOfPublish": "2020-05-08",
+      "dateOfPublish": "2020-05-16",
       "ratings": [
         {
           "username": "Peter Thoroughbrow",
@@ -187,10 +191,10 @@
       "username": "maman59",
       "password": "maman98a",
       "fname": "David",
-      "lname": "Peterbough",
+      "lname": "Peterborough",
       "email": "maman@gmail.com",
-      "isBlocked": false,
       "isAdmin": false,
+      "isBlocked": false,
       "favouriteCourses": []
     },
     {

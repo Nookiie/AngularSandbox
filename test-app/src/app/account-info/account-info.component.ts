@@ -4,6 +4,7 @@ import { Course } from 'src/assets/model/course';
 import { UserService } from 'src/assets/services/users.service';
 import { Subject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-info',
