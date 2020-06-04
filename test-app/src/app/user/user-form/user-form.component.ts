@@ -77,7 +77,10 @@ export class UserFormComponent implements OnInit {
       password: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
       fname: [this.user.fname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      email: [this.user.email, [Validators.required, Validators.email]]
+      email: [this.user.email, [Validators.required, Validators.email]],
+      isAdmin: [this.user.isAdmin],
+      isBlocked: [this.user.isBlocked],
+      favouriteCourses: [this.user.favouriteCourses]
     });
   }
 

@@ -84,15 +84,15 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  onDeleteClick(id: number): void {
-    this.user = this.users[id];
+  onDeleteClick(email: string): void {
+    this.user = this.users.find(x => x.email === email);
 
     if(this.user.isAdmin){
       console.log("Can not delete an admin user!");
       return;
     }
 
-    this.userService.deleteUser(id).pipe()
+    this.userService.deleteUser(this.user.id).pipe()
       .subscribe(() => this.getUsers());
   }
 

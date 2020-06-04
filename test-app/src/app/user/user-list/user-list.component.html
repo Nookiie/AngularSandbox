@@ -38,7 +38,7 @@
           <td *ngIf="user">{{user.fname}}</td>
           <td *ngIf="user">{{user.lname}}</td>
           <td *ngIf="user">{{user.email}}</td>
-          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" title="Remove" (click)="onDeleteClick(i)"></button></td>
+          <td *ngIf="user"><button class="btn-link glyphicon glyphicon-remove" title="Remove" (click)="onDeleteClick(user.email)"></button></td>
           <td *ngIf="user"><button class="btn-link glyphicon glyphicon-edit" title="Update" [routerLink]="['/user-add', user.id]"></button></td>
           <td *ngIf="user"><button class="btn-link glyphicon glyphicon-lock" title="Block" (click)="onBlockClick(i)"></button></td>
         </tr>
