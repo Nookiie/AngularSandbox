@@ -303,7 +303,7 @@
       "email": "something@so",
       "isBlocked": true,
       "isAdmin": false,
-      "favouriteCourses": []
+      "favouriteCourses": []  
     },
     {
       "id": 4,

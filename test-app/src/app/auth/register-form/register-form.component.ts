@@ -98,6 +98,8 @@ export class RegisterFormComponent implements OnInit {
       this.router.navigate(['login-form']);
     });
 
+    this.user = this.formGroup.value;
+    localStorage.setItem("currentUser", JSON.stringify(this.formGroup.value));
   }
 
   private buildForm(): void {
