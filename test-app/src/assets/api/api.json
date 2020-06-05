@@ -192,7 +192,7 @@
   "users": [
     {
       "id": 1,
-      "username": "maman5912",
+      "username": "maman5912121",
       "password": "maman98a",
       "fname": "David",
       "lname": "Peterborough",
@@ -400,28 +400,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": 5,
-      "username": "something12",
-      "password": "adsadaad",
-      "fname": "asdsadas",
-      "lname": "sdadaasdas",
-      "email": "asdas2@asdas",
-      "isAdmin": false,
-      "isBlocked": false,
-      "favouriteCourses": []
-    },
-    {
-      "id": 7,
-      "username": "sadasda",
-      "password": "okthenad",
-      "fname": "saddsa",
-      "lname": "sdadsada",
-      "email": "sdasdad@asdasda",
-      "isAdmin": false,
-      "isBlocked": false,
-      "favouriteCourses": []
     }
   ]
 }
