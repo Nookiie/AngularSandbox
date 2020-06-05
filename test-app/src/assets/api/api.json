@@ -43,12 +43,16 @@
           "rating": 2
         },
         {
+          "username": "maman59",
+          "rating": 6
+        },
+        {
           "username": "sadasd",
           "rating": 7
         },
         {
-          "username": "maman59",
-          "rating": 6
+          "username": "maman5912",
+          "rating": 10
         }
       ]
     },
@@ -174,7 +178,7 @@
     },
     {
       "id": 6,
-      "title": "asdsad",
+      "title": "asdsadet",
       "description": "asdasda",
       "dateOfPublish": "12121-02-21",
       "ratings": [
@@ -188,14 +192,107 @@
   "users": [
     {
       "id": 1,
-      "username": "maman59",
+      "username": "maman5912",
       "password": "maman98a",
       "fname": "David",
       "lname": "Peterborough",
       "email": "maman@gmail.com",
       "isAdmin": false,
       "isBlocked": false,
-      "favouriteCourses": []
+      "favouriteCourses": [
+        {
+          "id": 1,
+          "title": "Internet Technologies",
+          "description": "Something something description",
+          "dateOfPublish": "2020-05-13",
+          "ratings": [
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 5
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "1",
+              "rating": 10
+            },
+            {
+              "username": "1",
+              "rating": 1
+            },
+            {
+              "username": "1",
+              "rating": 8
+            },
+            {
+              "username": "asdadaasaftwq",
+              "rating": 2
+            },
+            {
+              "username": "maman59",
+              "rating": 6
+            },
+            {
+              "username": "sadasd",
+              "rating": 7
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Big Data",
+          "description": "Big Data Stuff",
+          "dateOfPublish": "2020-04-17",
+          "ratings": [
+            {
+              "username": "Peter Thoroughbrow",
+              "rating": 6
+            },
+            {
+              "username": "George Davidson",
+              "rating": 4
+            },
+            {
+              "username": "James Goodwill",
+              "rating": 6
+            },
+            {
+              "username": "1",
+              "rating": 4
+            },
+            {
+              "username": "asdada",
+              "rating": 3
+            },
+            {
+              "username": "asdadaasaftwq",
+              "rating": 10
+            },
+            {
+              "username": "sadasd",
+              "rating": 10
+            },
+            {
+              "username": "maman59",
+              "rating": 10
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 2,
@@ -303,6 +400,28 @@
           ]
         }
       ]
+    },
+    {
+      "id": 5,
+      "username": "something12",
+      "password": "adsadaad",
+      "fname": "asdsadas",
+      "lname": "sdadaasdas",
+      "email": "asdas2@asdas",
+      "isAdmin": false,
+      "isBlocked": false,
+      "favouriteCourses": []
+    },
+    {
+      "id": 7,
+      "username": "sadasda",
+      "password": "okthenad",
+      "fname": "saddsa",
+      "lname": "sdadsada",
+      "email": "sdasdad@asdasda",
+      "isAdmin": false,
+      "isBlocked": false,
+      "favouriteCourses": []
     }
   ]
 }

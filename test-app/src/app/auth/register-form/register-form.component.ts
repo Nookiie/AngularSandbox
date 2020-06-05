@@ -14,7 +14,7 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 
 export class RegisterFormComponent implements OnInit {
-  
+
   formGroup: FormGroup;
   registerErrorMessage: string;
   user: User;
@@ -52,7 +52,7 @@ export class RegisterFormComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-  
+
   checkPassword(): boolean {
     if (this.formGroup.value.password === this.formGroup.value.confirmPassword) {
       return true;
@@ -61,10 +61,16 @@ export class RegisterFormComponent implements OnInit {
   }
 
 
-  isEmailDuplicate(): boolean{
-    console.log(this.users);
+  isEmailDuplicate(): boolean {
+    if (this.users.find(x => x.email === this.formGroup.value.email)) {
+      return true;
+    }
 
-    if(this.users.find(x => x.email === this.formGroup.value.email)){
+    return false;
+  }
+
+  isPasswordFormsSame(): boolean {
+    if (this.formGroup.value.password === this.formGroup.value.confirmPassword) {
       return true;
     }
 
@@ -72,14 +78,19 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const user = this.formGroup.value;
-    if(this.isEmailDuplicate()){
+    if (this.isEmailDuplicate()) {
       this.registerErrorMessage = "There is already a user with the same email!";
       return;
     }
-    else{
-      this.registerErrorMessage = null;
+
+    if (!this.isPasswordFormsSame()) {
+      this.registerErrorMessage = "Passwords are not the same!";
+      return;
     }
+
+    this.registerErrorMessage = null;
+
+    this.formGroup.removeControl("confirmPassword");
 
     this.authService.register(this.formGroup.value).pipe(
       takeUntil(this.destroy$)
@@ -90,27 +101,28 @@ export class RegisterFormComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.user ={
+    this.user = {
       username: '',
       password: '',
       fname: '',
-      lname:'',
+      lname: '',
       email: '',
       isAdmin: false,
       isBlocked: false,
-      favouriteCourses:[]
+      favouriteCourses: []
     }
-    
+
     this.formGroup = this.fb.group({
       id: [this.user.id],
       username: [this.user.username, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       password: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
+      confirmPassword: [this.user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
       fname: [this.user.fname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       lname: [this.user.lname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       email: [this.user.email, [Validators.required, Validators.email]],
       isAdmin: [this.user.isAdmin],
       isBlocked: [this.user.isBlocked],
-      favouriteCourses:[this.user.favouriteCourses]
+      favouriteCourses: [this.user.favouriteCourses]
     });
   }
 

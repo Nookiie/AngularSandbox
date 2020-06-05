@@ -12,7 +12,6 @@ import { UserService } from 'src/assets/services/users.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-
   formGroup: FormGroup;
   user: User;
 
